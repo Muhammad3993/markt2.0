@@ -1,0 +1,75 @@
+.topPlague{
+    background: var(--black-bg);
+    z-index: 10;
+}
+
+.topPlague_box{
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topPlague_languages{
+    position: relative;
+}
+
+.topPlague_language{
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    cursor: pointer;
+    user-select: none;
+    gap: 3px;
+}
+
+.topPlague_language_img{
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    margin-bottom: 2px;
+}
+
+.topPlague_language_img img{
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+}
+
+.topPlague_language p {
+    text-transform: capitalize;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-bg);
+}
+
+.topPlague_current{
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-bg);
+    cursor: pointer;
+}
+
+.topPlague_box_txt{
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--white-bg);
+}
+
+.topPlague_languages_box{
+    position: absolute;
+    top: 150%;
+    background: var(--white);
+    padding: 15px 20px;
+    box-shadow: 0px 2px 8px 0px rgba(9, 9, 9, 0.12);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+}
+
+.topPlague_languages_box .topPlague_language{
+    width: max-content;
+}
