@@ -20,12 +20,13 @@ const Navbar = () => {
   const handleIsOpenBar = () => {
     setIsOpenBar(!isOpenBar)
   };
+  const [isOpenSearch, setIsOpenSearch] = useState(false);
   const [selectCatalog, setSelectCatalog] = useState(1)
   const [selectCatalog1, setSelectCatalog1] = useState(1)
 
   return (
     <>
-      <NavbarSearch/>
+      <NavbarSearch isOpenSearch={isOpenSearch} setIsOpenSearch={setIsOpenSearch}/>
       <nav>
         <div className="container">
           <div className="navbar">
@@ -81,7 +82,7 @@ const Navbar = () => {
               <img src={logo} alt="" />
             </NavLink>
             <div className="navbar_right-block">
-              <button className="navbar_search"><span><FiSearch/></span>search</button>
+              <button className="navbar_search" onClick={() => setIsOpenSearch(true)}><span><FiSearch/></span>search</button>
               <NavLink to={'/cart'} className="navbar_link"><CgShoppingBag/><span>100</span></NavLink>
               <NavLink to={'/heart'} className="navbar_link"><FaRegHeart/><span>0</span></NavLink>
               <NavLink to={'/user'} className="navbar_link"><RiUser3Line/></NavLink>

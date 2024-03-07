@@ -15,6 +15,7 @@ body{
     --white: #fff;
     --black: #000;
     --white-bg: #FEFEFE;
+    --white-bg1: #F5F5F7;
     --black-bg: #212529;
     --gray-bg: #BFC0C0;
     --gray-rgb: rgb(141, 143, 145);
@@ -33,7 +34,8 @@ a{
     text-decoration: none;
 }
 
-button{
+button,
+input{
     border: none;
     background: none;
     outline: none;

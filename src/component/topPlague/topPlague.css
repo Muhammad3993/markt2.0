@@ -67,7 +67,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    z-index: 10;
+    z-index: 12;
 }
 
 .topPlague_languages_box .topPlague_language{
