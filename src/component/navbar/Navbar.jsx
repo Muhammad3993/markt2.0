@@ -1,11 +1,11 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 // import react-router-dom
 import { NavLink } from "react-router-dom";
 // import icons
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { CgShoppingBag } from "react-icons/cg";
 import { FaRegHeart } from "react-icons/fa";
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiShoppingBag} from "react-icons/fi";
 import { RiUser3Line } from "react-icons/ri";
 // import css
 import './navbar.css'
@@ -78,14 +78,17 @@ const Navbar = () => {
                     </div>
               </>
             </div>
-            <NavLink to={'/'} className="navbar_logo">
-              <img src={logo} alt="" />
-            </NavLink>
+            <div className="navbar_center-block">
+              <button className="navbar_bar"><AiOutlineMenu/></button>
+              <NavLink to={'/'} className="navbar_logo">
+                <img src={logo} alt="" />
+              </NavLink>
+            </div>
             <div className="navbar_right-block">
-              <button className="navbar_search" onClick={() => setIsOpenSearch(true)}><span><FiSearch/></span>search</button>
+              <button className="navbar_search" onClick={() => setIsOpenSearch(true)}><span><FiSearch/></span><p>search</p></button>
               <NavLink to={'/cart'} className="navbar_link"><CgShoppingBag/><span>100</span></NavLink>
-              <NavLink to={'/heart'} className="navbar_link"><FaRegHeart/><span>0</span></NavLink>
-              <NavLink to={'/user'} className="navbar_link"><RiUser3Line/></NavLink>
+              <NavLink to={'/heart'} className="navbar_link navbar_link_heart"><FaRegHeart/><span>0</span></NavLink>
+              <NavLink to={'/user'} className="navbar_link navbar_link_user"><RiUser3Line/></NavLink>
             </div>
           </div>
         </div>

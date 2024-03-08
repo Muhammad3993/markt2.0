@@ -9,6 +9,7 @@
 
 body{
     font-family: 'Manrope', sans-serif;
+    height: 300vh;
 }
 
 :root{
@@ -18,7 +19,7 @@ body{
     --white-bg1: #F5F5F7;
     --black-bg: #212529;
     --gray-bg: #BFC0C0;
-    --gray-rgb: rgb(141, 143, 145);
+    --gray-rgb: rgba(0, 0, 0, .3);
     --blue: #07059A;
 
 }

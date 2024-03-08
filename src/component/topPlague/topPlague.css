@@ -73,3 +73,9 @@
 .topPlague_languages_box .topPlague_language{
     width: max-content;
 }
+
+@media screen and (max-width: 868px) {
+    .topPlague{
+        display: none;
+    }
+}
