@@ -17,8 +17,10 @@ const NavbarSearch = ({isOpenSearch, setIsOpenSearch}) => {
 
       if (screenWidth >= 868) {
         numberOfProducts = 6
-      } else {
-      numberOfProducts = 4
+      }else if(screenWidth > 370){
+        numberOfProducts = 4
+      }else{
+        numberOfProducts = 2
       }
 
       setProducts(data.slice(0, numberOfProducts)); //  
