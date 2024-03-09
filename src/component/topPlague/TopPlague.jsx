@@ -49,7 +49,7 @@ const TopPlague = () => {
               <div className="topPlague_language_img">
                 <img src={languages.find(lang => lang.name === selectedLanguage).img} alt="" />
               </div>
-              <p>{selectedLanguage === 'uzbek' ? 'uzbek' : selectedLanguage === 'english' ? 'english' : 'русский'}</p>
+              <p data-text={selectedLanguage.slice(0, 2)}>{selectedLanguage === 'uzbek' ? 'uzbek' : selectedLanguage === 'english' ? 'english' : 'русский'}</p>
             </div>
             {
               isOpen &&

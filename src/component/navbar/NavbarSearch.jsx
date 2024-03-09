@@ -100,46 +100,6 @@ const NavbarSearch = ({isOpenSearch, setIsOpenSearch}) => {
                     </div>           
                   ))
                 }
-                {/* <div className="nav_search_product">
-                  <div className="nav_search_product_img">
-                    <img src={img} alt="" />
-                  </div>
-                  <p className="nav_search_product_tag_name">Apple</p>
-                  <NavLink to={'/'} className="nav_search_product_title">Watch Series 9</NavLink>
-                  <p className="nav_search_product_price">от 4 942 000 сум</p>
-                </div>                
-                <div className="nav_search_product">
-                  <div className="nav_search_product_img">
-                    <img src={img} alt="" />
-                  </div>
-                  <p className="nav_search_product_tag_name">Apple</p>
-                  <NavLink to={'/'} className="nav_search_product_title">Watch Series 9</NavLink>
-                  <p className="nav_search_product_price">от 4 942 000 сум</p>
-                </div>                
-                <div className="nav_search_product">
-                  <div className="nav_search_product_img">
-                    <img src={img} alt="" />
-                  </div>
-                  <NavLink to={'/'} className="nav_search_product_tag_name">Apple</NavLink>
-                  <p className="nav_search_product_title">Watch Series 9</p>
-                  <p className="nav_search_product_price">от 4 942 000 сум</p>
-                </div>                
-                <div className="nav_search_product">
-                  <div className="nav_search_product_img">
-                    <img src={img} alt="" />
-                  </div>
-                  <NavLink to={'/'} className="nav_search_product_tag_name">Apple</NavLink>
-                  <p className="nav_search_product_title">Watch Series 9</p>
-                  <p className="nav_search_product_price">от 4 942 000 сум</p>
-                </div>          
-                <div className="nav_search_product">
-                  <div className="nav_search_product_img">
-                    <img src={img} alt="" />
-                  </div>
-                  <NavLink to={'/'} className="nav_search_product_tag_name">Apple</NavLink>
-                  <p className="nav_search_product_title">Watch Series 9</p>
-                  <p className="nav_search_product_price">от 4 942 000 сум</p>
-                </div> */}
               </div>
             </div>
           </div>

@@ -28,7 +28,7 @@
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
 }
 
 .topPlague_language_img img{
@@ -74,8 +74,21 @@
     width: max-content;
 }
 
+
 @media screen and (max-width: 868px) {
     .topPlague{
         display: none;
+    }
+
+    .topPlague_language{
+        width: max-content;
+    }
+    
+    .topPlague_languages_box{
+        left: -80%;
+    }
+
+    .topPlague_language_img{
+        margin-bottom: 5px;
     }
 }
