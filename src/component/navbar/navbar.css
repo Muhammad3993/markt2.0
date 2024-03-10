@@ -3,6 +3,7 @@ nav{
     width: 100%;
     background: var(--white-bg);
     z-index: 10;
+    position: fixed;
 }
 
 .navbar{
@@ -421,10 +422,10 @@ nav{
 }
 
 .side_bar_box_nav{
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 60px;
     border-bottom: 1px solid var(--gray-bg);
 }
 
@@ -466,7 +467,6 @@ nav{
     justify-content: space-between;
     align-items: center;
     height: 40px;
-    /* background: red; */
 }
 
 .side_bar_box_link span{
@@ -485,10 +485,37 @@ nav{
     display: flex;
     flex-direction: column;
     padding-top: 20px !important;
-    padding-bottom: 20px !important;
     gap: 5px;
 }
 
+.side_bar_box_logout{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.side_bar_box_logout p{
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--blue);
+}
+
+.side_bar_box_logout span{
+    margin-top: 5px;
+}
+
+.side_bar_box_icons{
+    display: flex;
+    gap: 10px;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+}
+
+.side_bar_box_icon{
+    font-size: 35px;
+    color: var(--blue);
+}
 /* media */
 @media screen and (max-width: 868px) {
     nav{
@@ -532,7 +559,13 @@ nav{
     }
 
     .side_bar{
+        height: 100vh;
         display: flex;
+    }
+
+    .side_bar_box{
+        height: 100%;
+        overflow-y: scroll;
     }
 
     .nav_bar{

@@ -6,8 +6,9 @@ import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { CgShoppingBag } from "react-icons/cg";
 import { FaRegHeart } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
-import { RiUser3Line } from "react-icons/ri";
+import { RiUser3Line, RiTelegramFill, RiInstagramFill } from "react-icons/ri";
 import { IoIosArrowForward } from "react-icons/io"
+import { LuLogOut } from "react-icons/lu"
 // import css
 import './navbar.css'
 // import img
@@ -189,8 +190,13 @@ const Navbar = () => {
                         </Fragment>
                       ))
                     }
+                    <div className="side_bar_box_logout"><p>Log out</p><span><LuLogOut /></span></div>
                   </div>
+                  <div className="side_bar_box_icons container">
+                    <a href="https://t.me/dayless_nights" className="side_bar_box_icon"><RiTelegramFill /></a>
+                    <a href="https://www.instagram.com/" className="side_bar_box_icon"><RiInstagramFill /></a>
                   </div>
+                </div>
                 <div className="side_bar_overlay" onClick={() => setSidebar(false)}></div>
               </div>
             </div>
