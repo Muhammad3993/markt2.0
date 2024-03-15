@@ -75,10 +75,21 @@ const Navbar = () => {
 
   const user = true;
 
+  const [positionTop, setPositionTop] = useState(false) 
+  const changePosition = () => {
+      if(window.scrollY >= 30){
+        setPositionTop(true)
+      }else{
+        setPositionTop(false)
+      }
+  }
+  window.addEventListener("scroll", changePosition)
+
+
   return (
     <>
       <NavbarSearch isOpenSearch={isOpenSearch} setIsOpenSearch={setIsOpenSearch}/>
-      <nav>
+      <nav className={positionTop ? "positionTopNav" : ""}>
         <div className="container">
           <div className="navbar">
             <div className="navbar_left-block">
@@ -221,7 +232,8 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-    </nav>
+      </nav>
+      <div className="free_nav"></div>
     </>
   )
 }
