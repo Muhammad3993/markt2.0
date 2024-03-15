@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 // import react-router-dom
 import { NavLink } from "react-router-dom";
 // import icons
@@ -19,8 +19,21 @@ import img1 from '../../assets/images/USA.png'
 import img2 from '../../assets/images/UZB.jpeg'
 // Cmponent
 import NavbarSearch from "./NavbarSearch";
+// data
+import { headerApi } from "../../data/headerApi"
 
 const Navbar = () => {
+  const [headerResponse, setHeaderResponse] = useState(null)
+  useEffect(() => {
+    const getHeader = async () => {
+      const response = await headerApi.getHeader()
+      setHeaderResponse(response)
+    }
+    
+    getHeader();
+  }, [])
+  
+
   const [sidebar, setSidebar] = useState(false)
   const [isOpenBar, setIsOpenBar] = useState();
   const handleIsOpenBar = () => {
@@ -79,17 +92,17 @@ const Navbar = () => {
               }
               <>
                     {
-                      data && data.map(item => (
-                        <NavLink to={item.path}  className={selectCatalog ? "nav_link nav_link_active" : "nav_link"} key={item.id} onClick={
+                      headerResponse && headerResponse.slice(0, 3).map((item, i) => (
+                        <NavLink to={item.slug} className={selectCatalog ? "nav_link nav_link_active" : "nav_link"} key={i} onClick={
                           () => {
                             setSelectCatalog(item.id)
                             setSelectCatalog1(1);
                             setIsOpenBar(true)
                           }
-                        }>{item.name}</NavLink>
+                        }>{item.title}</NavLink>
                       ))
                     }
-                    <div className={!isOpenBar ? 'nav_menu nav_menu_none' : 'nav_menu'}>
+                    {/* <div className={!isOpenBar ? 'nav_menu nav_menu_none' : 'nav_menu'}>
                       <div className='navbar_menu'>
                         <div className="container">
                           <div className="navbar_menu_box">
@@ -113,7 +126,7 @@ const Navbar = () => {
                         </div>
                       </div>
                       <div className="nav_overlay" onClick={handleIsOpenBar}></div>
-                    </div>
+                            </div> */}
               </>
             </div>
             <div className="navbar_center-block">
@@ -167,8 +180,8 @@ const Navbar = () => {
                   </div>
                   <div className="side_bar_box_catalog container">
                     {
-                      data.slice(1).map(item => (
-                        <NavLink key={item.id} className="side_bar_box_link"><span>{item.name}</span><p>{item.icon}</p></NavLink>
+                      headerResponse && headerResponse.map((item, i) => (
+                        <NavLink key={i} className="side_bar_box_link"><span>{item.title}</span><p><IoIosArrowForward/></p></NavLink>
                       ))
                     }
                   </div>

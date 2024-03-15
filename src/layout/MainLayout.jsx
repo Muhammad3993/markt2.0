@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom"
 // import components
 import Navbar from "../component/navbar/Navbar"
 import TopPlague from "../component/topPlague/TopPlague"
+import Footer from "../component/footer/Footer"
 
 
 const MainLayout = () => {
@@ -13,7 +14,7 @@ const MainLayout = () => {
         <main>
           <Outlet/>
         </main>
-        <h1>Footer</h1>
+        <Footer/>
     </div>
   )
 }

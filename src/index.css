@@ -14,13 +14,14 @@ body{
 :root{
     --white: #fff;
     --black: #000;
+    --black-bg: #212529;
+    --black-rgb: radial-gradient(71.06% 126.5% at 50% 50%, rgba(29, 29, 29, 0) 0%, #1D1D1D 100%);
     --white-bg: #FEFEFE;
     --white-bg1: #F5F5F7;
-    --black-bg: #212529;
     --gray-bg: #BFC0C0;
     --gray-rgb: rgba(0, 0, 0, .3);
     --blue: #07059A;
-
+    --red-bg: #E52134;
 }
 
 .container{
