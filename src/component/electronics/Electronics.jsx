@@ -1,21 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 // react-router-dom
 import { Link } from 'react-router-dom'
 // css
 import './electronics.css'
-// img
-import img from '../../assets/images/img.png'
-// data
-import { topCategoriesApi } from "../../data/topCategoriesApi.js"
+import { useContextProvider } from '../../context/Context'
 
 const Electronics = () => {
-  const [topCategoriesResponse, setTopCategoriesResponse] = useState(null)
-
+  
   const ref = useRef(null)
   const [startX, setStartX] = useState(0)
   const [startScrollLeft, setStartScrollLeft] = useState(0)
   const [myMouseDown, setMyMouseDown] = useState(false)
-
+  
   const handleDown = (e) => {
     if(!ref.current.contains(e.target)) return;
     setMyMouseDown(true);
@@ -32,7 +28,7 @@ const Electronics = () => {
       ref.current.scrollLeft = startScrollLeft - moveX
     }
   }
-
+  
   const handleUp = () => {
     setMyMouseDown(false);
   }
@@ -47,21 +43,16 @@ const Electronics = () => {
       document.removeEventListener('mousemove', handleMove);
     }
   },[handleDown,handleMove]);
-
+  
   const handleScroll = (e) => {
     const { scrollWidth, scrollLeft, clientWidth } = e.target;
-    if (scrollLeft + clientWidth === scrollWidth)console.log("end");
-    if (scrollLeft === 0)console.log("start");
+    if (scrollLeft + clientWidth === scrollWidth){}
+    if (scrollLeft === 0){}
   }
+  
 
-  useEffect(() => {
-    const getTopCategories = async () => {
-      const response = await topCategoriesApi.getTopCategories();
-      setTopCategoriesResponse(response);
-    }
 
-    getTopCategories()
-  },[])
+  const {topCategoriesResponse} = useContextProvider()
 
   return (
     <div className='electronics'>
@@ -75,7 +66,7 @@ const Electronics = () => {
                         <div className="electronics_box_product_img">
                           <img src={item.image} alt="" />
                         </div>
-                        <Link to={'/'} className='electronics_box_product_title'>{item.title}</Link>
+                        <Link to={`/categories/${item.slug}`} className='electronics_box_product_title'>{item.title}</Link>
                       </div>
                     ))
                   }

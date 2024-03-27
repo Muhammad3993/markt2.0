@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 // import react-router-dom
 import { NavLink } from "react-router-dom";
 // import icons
@@ -19,21 +19,11 @@ import img1 from '../../assets/images/USA.png'
 import img2 from '../../assets/images/UZB.jpeg'
 // Cmponent
 import NavbarSearch from "./NavbarSearch";
-// data
-import { headerApi } from "../../data/headerApi"
+// context
+import { useContextProvider } from '../../context/Context'
 
 const Navbar = () => {
-  const [headerResponse, setHeaderResponse] = useState(null)
-  useEffect(() => {
-    const getHeader = async () => {
-      const response = await headerApi.getHeader()
-      setHeaderResponse(response)
-    }
-    
-    getHeader();
-  }, [])
-  
-
+  const {headerResponse} = useContextProvider();
   const [sidebar, setSidebar] = useState(false)
   const [isOpenBar, setIsOpenBar] = useState();
   const handleIsOpenBar = () => {

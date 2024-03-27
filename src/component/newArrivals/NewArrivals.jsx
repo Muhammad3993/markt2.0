@@ -1,30 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 // react-router-dom
 import { Link } from 'react-router-dom'
 // css
 import './newArrivals.css'
-// img
-import img from '../../assets/images/img.png'
+
 // icons
 import { FaRegHeart } from "react-icons/fa";
-// data
-import { randomProductApi } from '../../data/randomProductApi.js'
+// Context
+import { useContextProvider } from '../../context/Context'
 
 const NewArrivals = () => {
-
-    const [randomProductResponse, setRandomProductResponse] = useState(null);
-
-    useEffect(() => {
-        const getRandomProductApi = async () => {
-            const response = await randomProductApi.getRandomProductApi()
-            setRandomProductResponse(response)
-        }
-
-        getRandomProductApi();
-    }, []);
-
-    // const tag = product.tags.length > 0 ? product.tags[0] : null
-
+    const {randomProductResponse} = useContextProvider();
   return (
     <div className='newArrivals'>
         <div className="container">
@@ -42,7 +28,7 @@ const NewArrivals = () => {
                                         <img src={item.thumbnail} alt="" />
                                     </div>
                                     <p className="newArrivals_box_product_brand">{item.brand.title}</p>
-                                    <Link to={'/'} className='newArrivals_box_product_txt_title'>{item.title}</Link>
+                                    <Link to={`/products/${item.slug}`} className='newArrivals_box_product_txt_title'>{item.title}</Link>
                                     <p className='newArrivals_box_product_txt_price'>от {item.price} сум</p>
                                 </div>
                                 <p className='newArrivals_box_product_heart'><FaRegHeart/></p>

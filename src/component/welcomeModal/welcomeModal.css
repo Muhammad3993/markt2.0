@@ -1,0 +1,220 @@
+.welcomeModal{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 13;
+    position: fixed;
+}
+
+.welcomeModal_close{
+    display: none;
+}
+
+.welcomeModal_box{
+    width: 100%;
+    height: 561px;
+    max-width: 888px;
+    margin: auto;
+    background: var(--white);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    padding: 30px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.welcomeModal_overlay{
+    width: 100%;
+    height: 100%;
+    background: var(--black-rgb);
+}
+
+.welcomeModal_box_title{
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--blue);
+}
+
+.welcomeModal_box_l-title{
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--black-bg);
+    margin-top: 20px;
+}
+
+.welcomeModal_box_products{
+    width: 100%;
+    margin-top: 50px;
+    position: relative;
+}
+
+.welcomeModal_box_product{
+    width: 172px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    user-select: none;
+}
+
+.welcomeModal_box_product_img{
+    width: 100%;
+    height: 158px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.welcomeModal_box_product_img img{
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.welcomeModal_box_product_brand{
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--blue);
+    text-transform: capitalize;
+    margin-top: 5px;
+}
+
+.welcomeModal_box_product_title{
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--black-bg);
+    margin-top: 8px;
+    text-decoration: underline;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.welcomeModal_box_product_price{
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--black-bg);
+    margin-top: 8px;
+    text-align: center;
+}
+
+.welcomeModal_box_product_tag{
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--red-bg);
+    text-transform: capitalize;
+}
+
+.welcomeModal_box_product_heart{
+    position: absolute;
+    top: 1px;
+    right: 0;
+    color: var(--gray-bg);
+    cursor: pointer;
+}
+
+.welcomeModal_box_link{
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--white-bg);
+    background: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 100px;
+    margin-top: 50px;
+}
+
+.welcomeModal_box_products_swiper{
+    padding: 15px !important;
+}
+
+.welcomeModal_box_products_swiper .swiper-button-next{
+    width: 70px;
+    height: 70px;
+    background: var(--white-bg1);
+    border-radius: 50%;
+    transform: scale(.5) !important;
+    position: absolute !important;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -10px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--gray-bg);
+}
+
+.welcomeModal_box_products_swiper .swiper-button-prev{
+    width: 70px;
+    height: 70px;
+    background: var(--white-bg1);
+    border-radius: 50%;
+    transform: scale(.5) !important;
+    position: absolute !important;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -16px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--gray-bg);
+    z-index: 11;
+}
+
+.welcomeModal_box_close{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+@media screen and (max-width: 530px) {
+    .welcomeModal_box{
+        height: 700px;
+    }
+    .welcomeModal_box_product{
+        width: 100%;
+        padding: 20px 0;
+    }
+
+    .welcomeModal_box_product_tag{
+        position: absolute;
+        left: 20px;
+        top: 0;
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--red-bg);
+        text-transform: capitalize;
+    }
+    
+    .welcomeModal_box_product_heart{
+        position: absolute;
+        top: 1px;
+        right: 20px;
+        color: var(--gray-bg);
+        cursor: pointer;
+    }
+
+    .welcomeModal_box_title{
+        font-size: 30px;
+    }
+    
+    .welcomeModal_box_l-title{
+        font-size: 20px;
+        text-align: center;
+    }
+}

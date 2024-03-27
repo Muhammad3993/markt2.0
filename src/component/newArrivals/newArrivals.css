@@ -67,6 +67,7 @@
     text-decoration: underline;
     margin-top: 10px;
     padding-left: 10px;
+    text-align: center;
 }
 
 .newArrivals_box_product_txt_price{
@@ -167,6 +168,14 @@
     .newArrivals_box_product_img{
         height: 345px;
     }
+
+    .newArrivals_box_product:hover .newArrivals_box_product_data{
+        transform: none;
+    }
+
+    .newArrivals_box_product:hover .newArrivals_box_product_img img{
+        transform: none;
+    }    
 }
 
 @media screen and (max-width: 450px) {
