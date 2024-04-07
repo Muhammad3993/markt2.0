@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 // swiper.js
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
@@ -12,14 +12,22 @@ import './welcomeModal.css'
 // icons
 import { AiOutlineClose } from "react-icons/ai";
 import { FaRegHeart } from 'react-icons/fa'
+import { randomProductApi } from '../../data/randomProductApi';
 // Context
-import { useContextProvider } from '../../context/Context'
 
 const WelcomeModal = () => {
 
     const [openModal, setOpenModal] = useState(true)
+    const [randomProductResponse, setRandomProductResponse] = useState(null);
 
-    const {randomProductResponse} = useContextProvider()
+    useEffect(() => {
+        const getRandomProductApi = async () => {
+            const response = await randomProductApi.getRandomProductApi()
+            setRandomProductResponse(response)
+        }
+  
+        getRandomProductApi();
+    }, []);
   return (
     <div className={!openModal ? 'welcomeModal welcomeModal_close' : 'welcomeModal'}>
         <div className="welcomeModal_box">
