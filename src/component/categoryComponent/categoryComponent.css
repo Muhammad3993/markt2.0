@@ -409,8 +409,9 @@ input[type="checkbox"] {
 
 .fillter_main_body_items{
     display: flex;
-    flex-wrap: wrap;
-    gap: 2px;
+    gap: 3px;
+    overflow: hidden;
+    overflow-x: scroll;
 }
 
 .fillter_main_body_item{
@@ -422,6 +423,8 @@ input[type="checkbox"] {
     background: var(--white-bg1);
     padding: 10px;
     border-radius: 3px;
+    user-select: none;
+    min-width: max-content;
 }
 
 .fillter_main_body_items_clear{
@@ -429,6 +432,7 @@ input[type="checkbox"] {
     cursor: pointer;
     display: flex;
     position: relative;
+    /* top: 10px; */
     left: 86.5%;
     text-decoration: underline;
 }
@@ -477,18 +481,22 @@ input[type="checkbox"] {
 
 .filter_bottom_el{
     width: 100%;
-    height: 48px;
+    height: auto;
     background: var(--white-bg);
     display: flex;
     align-items: center;
     border-bottom: 1px solid var(--gray-bg);
     position: fixed;
     bottom: 0;
-    z-index: 12;
+    z-index: 11;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
 }
 
 .filter_bottom_items{
+    width: 100%;
     display: flex;
+    flex-wrap: wrap;
     padding-left: 20px;
     gap: 10px;
 }
@@ -525,6 +533,7 @@ input[type="checkbox"] {
 
 .filter_bottom_item{
     width: max-content;
+    min-width: max-content;
     display: flex;
     align-items: center;
     justify-content: center;

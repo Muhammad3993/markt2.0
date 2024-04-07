@@ -24,6 +24,9 @@ export const ContextProvider = ({ children }) => {
 
   //filterData
   const [selectData, setSelectData] = useState(null);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedBrands, setSelectedBrands] = useState([]);
 
 
   // CategoryComponent 
@@ -116,6 +119,12 @@ export const ContextProvider = ({ children }) => {
       pages,
       selectData,
       setSelectData,
+      selectedCategories,
+      setSelectedCategories,
+      selectedTags,
+      setSelectedTags,
+      selectedBrands,
+      setSelectedBrands
     }
 
     return (

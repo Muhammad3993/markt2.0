@@ -13,7 +13,7 @@ import { useContextProvider } from '../../context/Context'
 import Fillter from './Fillter';
 import { AiOutlineClose } from 'react-icons/ai';
 const CategoryComponent = () => {
-    const {setCategorySlug, categoryShowResponse, productsResponse, currentPage, setCurrentPage, pages, productsColumn, setProductsColumn, setIsOpenFilter, selectData} = useContextProvider();
+    const {setCategorySlug, categoryShowResponse, productsResponse, currentPage, setCurrentPage, pages, productsColumn, setProductsColumn, setIsOpenFilter, selectData, setSelectData, setCategoryId, setTagId, setBrandId,} = useContextProvider();
 
     const { slug } = useParams();
 
@@ -21,9 +21,15 @@ const CategoryComponent = () => {
         setCategorySlug(slug);
     }, [slug, setCategorySlug]);
 
-    // const handleClear = () => {
-    //     selectData.categories = [];
-    // }
+    const handleClear = () => {
+        // selectData.categories = [];
+        // selectData.tags = [];
+        // selectData.brands = [];
+        setSelectData(null);
+        setCategoryId([]);
+        setTagId([]);
+        setBrandId([]);
+    }
     
   return (
     <div className='cat_component'>
@@ -74,9 +80,9 @@ const CategoryComponent = () => {
                         ))
                     }
                     {
-                        selectData && selectData.categories.length || selectData && selectData.tags.length || selectData && selectData.brands.length != '' ?
-                        <div className="filter_bottom_el">
-                            <button className='filter_bottom_el_btn'>Filters <span><FaPlus/></span></button>
+                        selectData && Number(selectData.categories.length + selectData.tags.length + selectData.brands.length) != '' ?
+                        <div className="filter_bottom_el container">
+                            <button className='filter_bottom_el_btn' onClick={() => setIsOpenFilter(true)}>Filters <span><FaPlus/></span></button>
                             <div className="filter_bottom_items">
                                 {
                                     selectData && selectData.categories.map(cat => (
@@ -102,7 +108,7 @@ const CategoryComponent = () => {
                                         </div>
                                     ))
                                 }
-                                <p className="filter_bottom_el_clear">Clear All</p>
+                                <p className="filter_bottom_el_clear" onClick={handleClear}>Clear All</p>
                             </div>
                         </div> : ''
                     }

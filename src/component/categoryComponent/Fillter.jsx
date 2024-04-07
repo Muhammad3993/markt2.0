@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 // icons
 import { AiOutlineClose } from "react-icons/ai"
 import { FaMinus, FaPlus } from "react-icons/fa6"
@@ -6,20 +6,13 @@ import { FaMinus, FaPlus } from "react-icons/fa6"
 // Context
 import { useContextProvider } from '../../context/Context'
 const Fillter = () => {
-    const { setCategoryId, setTagId, setBrandId, isOpenFilter, setIsOpenFilter, cataegoriesResponse, tagsResponse, brandsResponse, setSelectData} = useContextProvider()
+    const { setCategoryId, setTagId, setBrandId, isOpenFilter, setIsOpenFilter, cataegoriesResponse, tagsResponse, brandsResponse, setSelectData, selectedCategories, setSelectedCategories, selectedTags, setSelectedTags, selectedBrands, setSelectedBrands} = useContextProvider()
     // for open
     const [fillterCategory, setFillterCategory] = useState();
     const [fillterTag, setFillterTag] = useState();
     const [fillterBrand, setFillterBrand] = useState();
     const [fillterPrice, setFillterPrice] = useState();
     // for open
-    const [selectedCategories, setSelectedCategories] = useState([]);
-    const [selectedTags, setSelectedTags] = useState([]);
-    const [selectedBrands, setSelectedBrands] = useState([]);
-    // const [selectData, setSelectData] = useState(null);
-
-
-    
     const handleCategoryChange = (item, isChecked) => {
         if (isChecked) {
             setSelectedCategories([...selectedCategories, item]);
@@ -44,25 +37,37 @@ const Fillter = () => {
         }
     };
 
+    const handleClearBtn = () => {
+        setSelectedCategories([]);
+        setSelectedTags([]);
+        setSelectedBrands([]);
+
+        const categoryCheckboxes = document.querySelectorAll('input[name="category"]');
+        const tagCheckboxes = document.querySelectorAll('input[name="tag"]');
+        const brandCheckboxes = document.querySelectorAll('input[name="brand"]');
+
+        categoryCheckboxes.forEach(checkbox => checkbox.checked = false);
+        tagCheckboxes.forEach(checkbox => checkbox.checked = false);
+        brandCheckboxes.forEach(checkbox => checkbox.checked = false);
+    }
+
     const categoryIds = selectedCategories.map(category => category.id);
     const tagIds = selectedTags.map(tag => tag.id);
     const brandIds = selectedBrands.map(brand => brand.id);
+
+    const SelectData = {
+        categories: selectedCategories,
+        tags: selectedTags,
+        brands: selectedBrands
+    };
 
     const handleAply = () => {
         setCategoryId(categoryIds);
         setTagId(tagIds);
         setBrandId(brandIds);
-
-        const SelectData = {
-            categories: selectedCategories,
-            tags: selectedTags,
-            brands: selectedBrands
-        };
-
-        setSelectData(SelectData)
+        setSelectData(SelectData);
+        setIsOpenFilter(false);
     }
-
-
 
   return (
     <div className={isOpenFilter ? 'fillter fillter_open' : 'fillter'}>
@@ -103,7 +108,7 @@ const Fillter = () => {
                                 }
 
                             </div>
-                            <p className="fillter_main_body_items_clear">Clear all</p>
+                            <p className="fillter_main_body_items_clear" onClick={handleClearBtn}>Clear all</p>
                         </> : ''
                     }
                     <div className="fillter_main_body_categories">
@@ -124,7 +129,7 @@ const Fillter = () => {
                             {
                                 cataegoriesResponse && cataegoriesResponse.data.map(item => (
                                     <label className="fillter_main_body_cats_first" key={item.id}>
-                                        <input type="checkbox" onChange={(e) => handleCategoryChange(item, e.target.checked)}/>
+                                        <input name="category" type="checkbox" onChange={(e) => handleCategoryChange(item, e.target.checked)}/>
                                         <span className="fillter_main_body_cats_first_title">{item.title}</span>
                                     </label>                            
                                 ))
@@ -149,7 +154,7 @@ const Fillter = () => {
                             {
                                 tagsResponse && tagsResponse.data.map(item => (
                                     <label className="fillter_main_body_cats_first" key={item.id}>
-                                        <input type="checkbox" onChange={(e) => handleTagChange(item, e.target.checked)}/>
+                                        <input name="tag" type="checkbox" onChange={(e) => handleTagChange(item, e.target.checked)}/>
                                         <span className="fillter_main_body_cats_first_title">{item.title}</span>
                                     </label>                            
                                 ))
@@ -174,7 +179,7 @@ const Fillter = () => {
                             {
                                 brandsResponse && brandsResponse.data.map(item => (
                                     <label className="fillter_main_body_cats_first" key={item.id}>
-                                        <input type="checkbox" onChange={(e) => handleBrandChange(item, e.target.checked)}/>
+                                        <input name="brand" type="checkbox" onChange={(e) => handleBrandChange(item, e.target.checked)}/>
                                         <span className="fillter_main_body_cats_first_title">{item.title}</span>
                                     </label>                            
                                 ))
