@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 // react-router-dom
 import { Link, useParams } from 'react-router-dom';
 // css
@@ -7,63 +7,28 @@ import './categoryComponent.css'
 import img from '../../assets/images/dots3.png';
 import img1 from '../../assets/images/dots4.png';
 // icons
-import { FaRegHeart } from 'react-icons/fa';
-// data
-import { categoryShowApi } from '../../data/categoryShowApi';
+import { FaPlus, FaRegHeart } from 'react-icons/fa';
 // Context
 import { useContextProvider } from '../../context/Context'
-import { productsApi } from '../../data/productsApi';
 import Fillter from './Fillter';
+import { AiOutlineClose } from 'react-icons/ai';
 const CategoryComponent = () => {
-    const [isOpenFilter, setIsOpenFilter] = useState(false);
+    const {setCategorySlug, categoryShowResponse, productsResponse, currentPage, setCurrentPage, pages, productsColumn, setProductsColumn, setIsOpenFilter, selectData} = useContextProvider();
 
-    const [categoryShowResponse, setCategoryShowResponse] = useState(null)
-    const [productsResponse, setProductsResponse] = useState(null)
-    const [currentPage, setCurrentPage] = useState(1);
-    
-    // const [productsPerPage, setProductsPerPage] = useState(16);
-    const [productsColumn, setProductsColumn] = useState(true);
-    
-    let { slug } = useParams();
-    
-    // const categoryId = categoryShowResponse ? categoryShowResponse.categories.map((category) => category.id) : 0;
-    
-    const pages = new Array(productsResponse && productsResponse.meta.last_page).fill(null);
-    
-    const [categoryId, setCategoryId] = useState(null);
-    
-    useEffect(() => {
-        const getCategoryShowApi = async () => {
-            const response = await categoryShowApi.getCategoryShowApi(slug)
-            setCategoryShowResponse(response)
-            if (response && response.categories && response.categories.length > 0) {
-                const catId = response.item.id;
-                console.log(catId);
-                setCategoryId(catId);
-            }
-        }
-        
-        getCategoryShowApi()
-    }, [slug]);
-    
-    
-    useEffect(() => {
-        const getProductsApi = async () => {
-            if(categoryId){
-                const response = await productsApi.getProductsApi(currentPage, categoryId)
-                setProductsResponse(response)
-            }
-        }
-        
-        getProductsApi()
-    }, [currentPage, categoryId]);
-    
-    console.log(categoryId);
+    const { slug } = useParams();
 
+    useEffect(() => {
+        setCategorySlug(slug);
+    }, [slug, setCategorySlug]);
+
+    // const handleClear = () => {
+    //     selectData.categories = [];
+    // }
+    
   return (
     <div className='cat_component'>
         <div className="container">
-            <Fillter setIsOpenFilter={setIsOpenFilter} isOpenFilter={isOpenFilter}/>
+            <Fillter/>
             <div className="cat_component_main">
                 <div className="cat_component_main_nav">
                     <p className='cat_component_main_nav_title'>{categoryShowResponse ? categoryShowResponse.item.title : "Loading :)"}</p>
@@ -108,6 +73,39 @@ const CategoryComponent = () => {
                             </div>
                         ))
                     }
+                    {
+                        selectData && selectData.categories.length || selectData && selectData.tags.length || selectData && selectData.brands.length != '' ?
+                        <div className="filter_bottom_el">
+                            <button className='filter_bottom_el_btn'>Filters <span><FaPlus/></span></button>
+                            <div className="filter_bottom_items">
+                                {
+                                    selectData && selectData.categories.map(cat => (
+                                        <div className="filter_bottom_item" key={cat.id}>
+                                            <p className='filter_bottom_item_title'>{cat.title}</p>
+                                            <span className='filter_bottom_item_close'><AiOutlineClose/></span>
+                                        </div>
+                                    ))
+                                }
+                                {
+                                    selectData && selectData.tags.map(tag => (
+                                        <div className="filter_bottom_item" key={tag.id}>
+                                            <p className='filter_bottom_item_title'>{tag.title}</p>
+                                            <span className='filter_bottom_item_close'><AiOutlineClose/></span>
+                                        </div>
+                                    ))
+                                }
+                                {
+                                    selectData && selectData.brands.map(brand => (
+                                        <div className="filter_bottom_item" key={brand.id}>
+                                            <p className='filter_bottom_item_title'>{brand.title}</p>
+                                            <span className='filter_bottom_item_close'><AiOutlineClose/></span>
+                                        </div>
+                                    ))
+                                }
+                                <p className="filter_bottom_el_clear">Clear All</p>
+                            </div>
+                        </div> : ''
+                    }
                     <div className='cat_component_main_products_pagination'>
                         <div className="cat_component_main_products_pagination_page">
                             {
@@ -124,7 +122,7 @@ const CategoryComponent = () => {
                                 )
                             }
                         </div>
-                        <p className='cat_component_main_products_pagination_count'>0 of {productsResponse && productsResponse.data.length} products</p>
+                        <p className='cat_component_main_products_pagination_count'>{productsResponse && productsResponse.meta.to} of {productsResponse && productsResponse.meta.total} products</p>
                     </div>
                 </div>
             </div>

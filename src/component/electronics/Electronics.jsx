@@ -1,12 +1,14 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 // react-router-dom
 import { Link } from 'react-router-dom'
 // css
 import './electronics.css'
-import { useContextProvider } from '../../context/Context'
+// data
+import { topCategoriesApi } from '../../data/topCategoriesApi'
 
 const Electronics = () => {
   
+  // For scroll
   const ref = useRef(null)
   const [startX, setStartX] = useState(0)
   const [startScrollLeft, setStartScrollLeft] = useState(0)
@@ -49,10 +51,20 @@ const Electronics = () => {
     if (scrollLeft + clientWidth === scrollWidth){}
     if (scrollLeft === 0){}
   }
+  // For scroll
   
 
+  const [topCategoriesResponse, setTopCategoriesResponse] = useState(null);
 
-  const {topCategoriesResponse} = useContextProvider()
+
+  useEffect(() => {
+    const getTopCategories = async () => {
+      const response = await topCategoriesApi.getTopCategories();
+      setTopCategoriesResponse(response);
+    }
+
+    getTopCategories()
+  },[])
 
   return (
     <div className='electronics'>

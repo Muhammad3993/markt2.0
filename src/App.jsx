@@ -14,7 +14,6 @@ import { ContextProvider } from "./context/Context"
 
 function App() {
 
-
   const routes = createBrowserRouter(
     createRoutesFromElements(
       <Route element={<MainLayout/>}>
@@ -22,10 +21,6 @@ function App() {
         <Route path="/products" element={<Products/>}/>
         <Route path="/products/:slug" element={<ProductDetail/>}/>
         <Route path="/categories/:slug" element={<CategoryShow/>}/>
-        {/* <Route path="/electronics" element={<Home/>}/>
-        <Route path="/appliances" element={<Home/>}/>
-        <Route path="/accessories" element={<Home/>}/>
-        <Route path="/sale" element={<Home/>}/> */}
       </Route>
     )
   )

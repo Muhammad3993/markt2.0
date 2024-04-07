@@ -286,11 +286,11 @@ input[type="checkbox"] {
 .fillter_main_body_cats_first_title::after {
   content: "";
   display: inline-block;
-  height: 12px;
-  width: 14px;
+  height: 14px;
+  width: 15px;
   border-radius: 2px;
   background-color: transparent;
-  left: 3px;
+  left: 2px;
   position: absolute;
 }
 
@@ -393,7 +393,7 @@ input[type="checkbox"] {
 }
 
 .fillter_main_body_cats_disable{
-    height: 520px;
+    height: 440px;
     transform: translateY(0); 
     position: relative;
     transition: 2s;
@@ -458,7 +458,7 @@ input[type="checkbox"] {
 }
 
 .filter_currency_inputs input{
-    width: 50%;
+    width: 48.9%;
     height: 40px;
     border: 1px solid var(--gray-bg);
     color: var(--gray-bg);
@@ -473,6 +473,77 @@ input[type="checkbox"] {
 
 .pagination{
     display: flex;
+}
+
+.filter_bottom_el{
+    width: 100%;
+    height: 48px;
+    background: var(--white-bg);
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--gray-bg);
+    position: fixed;
+    bottom: 0;
+    z-index: 12;
+}
+
+.filter_bottom_items{
+    display: flex;
+    padding-left: 20px;
+    gap: 10px;
+}
+
+.filter_bottom_item_title{
+    font-size: 14px;
+    font-weight: 400;
+    margin-right: 5px;
+}
+
+.filter_bottom_item_close{
+    width: 15px;
+    height: 15px;
+    font-size: 10px;
+    border: 1px solid var(--gray-bg);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.filter_bottom_el_btn{
+    width: 150px;
+    height: 100%;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-right: 1px solid var(--gray-bg);
+    cursor: pointer;
+}
+
+.filter_bottom_item{
+    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--gray-bg);
+    color: var(--gray-bg);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.filter_bottom_item:hover{
+    color: var(--black-bg);
+}
+
+.filter_bottom_el_clear{
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--blue);
+    cursor: pointer;
+    user-select: none;
 }
 
 @media screen and (max-width: 768px) {

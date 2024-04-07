@@ -19,11 +19,10 @@ import img1 from '../../assets/images/USA.png'
 import img2 from '../../assets/images/UZB.jpeg'
 // Cmponent
 import NavbarSearch from "./NavbarSearch";
-// context
-import { useContextProvider } from '../../context/Context'
+import { headerApi } from "../../data/headerApi";
 
 const Navbar = () => {
-  const {headerResponse} = useContextProvider();
+  const [headerResponse, setHeaderResponse] = useState(null)
   const [sidebar, setSidebar] = useState(false)
   const [isOpenBar, setIsOpenBar] = useState();
   const handleIsOpenBar = () => {
@@ -64,6 +63,15 @@ const Navbar = () => {
   ];
 
   const user = true;
+
+  useEffect(() => {
+    const getHeader = async () => {
+      const response = await headerApi.getHeader()
+      setHeaderResponse(response)
+    }
+    
+    getHeader();
+  }, [])
 
   const [positionTop, setPositionTop] = useState(false) 
   const changePosition = () => {

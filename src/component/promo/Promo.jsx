@@ -1,17 +1,23 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 // data
 import { promoApi } from '../../data/promoApi.js';
 // css
 import './promo.css'
 // videos
 import vid from '../../assets/videos/vid.mp4'
-// context
-import { useContextProvider } from '../../context/Context'
 
 
 const Promo = () => {
-  const {promoResponse} = useContextProvider()
+  const [promoResponse, setPromoResponse] = useState(null)
 
+  useEffect(() => {
+    const getPromo = async () => {
+        const response = await promoApi.getPromo()
+        setPromoResponse(response)
+    }
+
+    getPromo();
+},[])
   return (
     <div className='promo'>
       <div className="container">

@@ -2,34 +2,67 @@ import { useEffect, useState } from "react"
 // icons
 import { AiOutlineClose } from "react-icons/ai"
 import { FaMinus, FaPlus } from "react-icons/fa6"
-import { categoriesApi } from "../../data/categoriesApi";
-import { brandsApi } from "../../data/brandsApi";
 
-const Fillter = ({setIsOpenFilter, isOpenFilter}) => {
-    
+// Context
+import { useContextProvider } from '../../context/Context'
+const Fillter = () => {
+    const { setCategoryId, setTagId, setBrandId, isOpenFilter, setIsOpenFilter, cataegoriesResponse, tagsResponse, brandsResponse, setSelectData} = useContextProvider()
+    // for open
     const [fillterCategory, setFillterCategory] = useState();
+    const [fillterTag, setFillterTag] = useState();
     const [fillterBrand, setFillterBrand] = useState();
     const [fillterPrice, setFillterPrice] = useState();
+    // for open
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [selectedTags, setSelectedTags] = useState([]);
+    const [selectedBrands, setSelectedBrands] = useState([]);
+    // const [selectData, setSelectData] = useState(null);
 
-    const [cataegoriesResponse, setCataegoriesResponse] = useState(null);
-    useEffect(() => {
-        const getCategoriesApi = async () => {
-            const response = await categoriesApi.getCategoriesApi();
-            setCataegoriesResponse(response);
-        }
 
-        getCategoriesApi();
-    }, []);    
     
-    const [brandsResponse, setBrandsResponse] = useState(null);
-    useEffect(() => {
-        const getCategoriesApi = async () => {
-            const response = await brandsApi.getBrandsApi();
-            setBrandsResponse(response);
+    const handleCategoryChange = (item, isChecked) => {
+        if (isChecked) {
+            setSelectedCategories([...selectedCategories, item]);
+        } else if (!isChecked){
+            setSelectedCategories(selectedCategories.filter(category => category.id !== item.id));
         }
+    };
 
-        getCategoriesApi();
-    }, []);
+    const handleTagChange = (item, isChecked) => {
+        if (isChecked) {
+            setSelectedTags([...selectedTags, item]);
+        } else if (!isChecked){
+            setSelectedTags(selectedTags.filter(tag => tag.id !== item.id));
+        }
+    };
+
+    const handleBrandChange = (item, isChecked) => {
+        if (isChecked) {
+            setSelectedBrands([...selectedBrands, item]);
+        } else if (!isChecked){
+            setSelectedBrands(selectedBrands.filter(brand => brand.id !== item.id));
+        }
+    };
+
+    const categoryIds = selectedCategories.map(category => category.id);
+    const tagIds = selectedTags.map(tag => tag.id);
+    const brandIds = selectedBrands.map(brand => brand.id);
+
+    const handleAply = () => {
+        setCategoryId(categoryIds);
+        setTagId(tagIds);
+        setBrandId(brandIds);
+
+        const SelectData = {
+            categories: selectedCategories,
+            tags: selectedTags,
+            brands: selectedBrands
+        };
+
+        setSelectData(SelectData)
+    }
+
+
 
   return (
     <div className={isOpenFilter ? 'fillter fillter_open' : 'fillter'}>
@@ -40,24 +73,43 @@ const Fillter = ({setIsOpenFilter, isOpenFilter}) => {
                     <button onClick={() => setIsOpenFilter(false)}><AiOutlineClose/></button>
                 </div>
                 <div className="fillter_main_body">
-                    {/* <div className="fillter_main_body_items">
-                        <div className="fillter_main_body_item">
-                            <p>Household Appliances</p>
-                            <span><AiOutlineClose/></span>
-                        </div>                        
-                        <div className="fillter_main_body_item">
-                            <p>Household Appliances</p>
-                            <span><AiOutlineClose/></span>
-                        </div>       
-                        <div className="fillter_main_body_item">
-                            <p>Household</p>
-                            <span><AiOutlineClose/></span>
-                        </div>
-                    </div>
-                    <p className="fillter_main_body_items_clear">Clear all</p> */}
+                    {
+                        Number(selectedCategories.length + selectedTags.length + selectedBrands.length) > 0 ?
+                        <>
+                            <div className="fillter_main_body_items">
+                                {
+                                    selectedCategories.map(category => (
+                                        <div className="fillter_main_body_item" key={category.id}>
+                                            <p>{category.title}</p>
+                                            <span><AiOutlineClose/></span>
+                                        </div>                 
+                                    ))
+                                }
+                                {
+                                    selectedTags.map(tag => (
+                                        <div className="fillter_main_body_item" key={tag.id}>
+                                            <p>{tag.title}</p>
+                                            <span><AiOutlineClose/></span>
+                                        </div>                 
+                                    ))
+                                }
+                                {
+                                    selectedBrands.map(brand => (
+                                        <div className="fillter_main_body_item" key={brand.id}>
+                                            <p>{brand.title}</p>
+                                            <span><AiOutlineClose/></span>
+                                        </div>                 
+                                    ))
+                                }
+
+                            </div>
+                            <p className="fillter_main_body_items_clear">Clear all</p>
+                        </> : ''
+                    }
                     <div className="fillter_main_body_categories">
                         <div className="fillter_main_body_head" onClick={() => {
                             setFillterCategory(!fillterCategory)
+                                setFillterTag(false)
                                 setFillterBrand(false)
                                 setFillterPrice(false)
                             }}>
@@ -72,7 +124,7 @@ const Fillter = ({setIsOpenFilter, isOpenFilter}) => {
                             {
                                 cataegoriesResponse && cataegoriesResponse.data.map(item => (
                                     <label className="fillter_main_body_cats_first" key={item.id}>
-                                        <input type="checkbox"/>
+                                        <input type="checkbox" onChange={(e) => handleCategoryChange(item, e.target.checked)}/>
                                         <span className="fillter_main_body_cats_first_title">{item.title}</span>
                                     </label>                            
                                 ))
@@ -81,7 +133,33 @@ const Fillter = ({setIsOpenFilter, isOpenFilter}) => {
                     </div>
                     <div className="fillter_main_body_categories">
                         <div className="fillter_main_body_head" onClick={() => {
+                                setFillterTag(!fillterTag)
+                                setFillterBrand(false)
+                                setFillterCategory(false)
+                                setFillterPrice(false)
+                            }}>
+                            <p>Tag</p>
+                            {
+                                fillterTag ? 
+                                <p><FaMinus /></p>:
+                                <p><FaPlus /></p>
+                            }
+                        </div>
+                        <div className={fillterTag ? `fillter_main_body_cats ${tagsResponse && tagsResponse.data.length !== 15 ? "fillter_main_body_cats_disable filter_height" : "fillter_main_body_cats_disable"}` : "fillter_main_body_cats"}>
+                            {
+                                tagsResponse && tagsResponse.data.map(item => (
+                                    <label className="fillter_main_body_cats_first" key={item.id}>
+                                        <input type="checkbox" onChange={(e) => handleTagChange(item, e.target.checked)}/>
+                                        <span className="fillter_main_body_cats_first_title">{item.title}</span>
+                                    </label>                            
+                                ))
+                            }
+                        </div>
+                    </div>   
+                    <div className="fillter_main_body_categories">
+                        <div className="fillter_main_body_head" onClick={() => {
                                 setFillterBrand(!fillterBrand)
+                                setFillterTag(false)
                                 setFillterCategory(false)
                                 setFillterPrice(false)
                             }}>
@@ -96,16 +174,17 @@ const Fillter = ({setIsOpenFilter, isOpenFilter}) => {
                             {
                                 brandsResponse && brandsResponse.data.map(item => (
                                     <label className="fillter_main_body_cats_first" key={item.id}>
-                                        <input type="checkbox"/>
+                                        <input type="checkbox" onChange={(e) => handleBrandChange(item, e.target.checked)}/>
                                         <span className="fillter_main_body_cats_first_title">{item.title}</span>
                                     </label>                            
                                 ))
                             }
                         </div>
-                    </div>     
+                    </div>
                     <div className="fillter_main_body_categories">
                         <div className="fillter_main_body_head" onClick={() => {
                                 setFillterPrice(!fillterPrice)
+                                setFillterTag(false)
                                 setFillterBrand(false)
                                 setFillterCategory(false)
                             }}>
@@ -129,7 +208,7 @@ const Fillter = ({setIsOpenFilter, isOpenFilter}) => {
                 </div>
             </div>
             <div className="fillter_main_foot">
-                <button>First (0)</button>
+                <button onClick={handleAply}>Appy ({selectedCategories + selectedTags + selectedBrands ? selectedCategories.length + selectedTags.length + selectedBrands.length : 0})</button>
             </div>
         </div>
         <div className="fillter_overlay" onClick={() => setIsOpenFilter(false)}></div>

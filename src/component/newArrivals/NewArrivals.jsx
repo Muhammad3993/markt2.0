@@ -1,16 +1,24 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 // react-router-dom
 import { Link } from 'react-router-dom'
 // css
 import './newArrivals.css'
-
 // icons
 import { FaRegHeart } from "react-icons/fa";
-// Context
-import { useContextProvider } from '../../context/Context'
+// data
+import { randomProductApi } from '../../data/randomProductApi';
 
 const NewArrivals = () => {
-    const {randomProductResponse} = useContextProvider();
+    const [randomProductResponse, setRandomProductResponse] = useState(null);
+
+    useEffect(() => {
+        const getRandomProductApi = async () => {
+            const response = await randomProductApi.getRandomProductApi()
+            setRandomProductResponse(response)
+        }
+  
+        getRandomProductApi();
+    }, []);
   return (
     <div className='newArrivals'>
         <div className="container">
