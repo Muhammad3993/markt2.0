@@ -1,0 +1,177 @@
+/* accountheader */
+.accountheader{
+    width: 100%;
+    background: var(--white-bg1);
+}
+
+.accountheader_main_title{
+    width: 100%;
+    height: 176px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accountheader_main_title p {
+    font-size: 40px;
+    font-weight: 500;
+    color: var(--black-bg);
+    text-align: center;
+}
+
+.accountheader_main_links{
+    width: 100%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accountheader_main_link{
+    width: 254px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--black-bg);
+    border-bottom: 1px solid transparent;
+}
+
+.accountheader_main_link.active{
+    border-bottom: 1px solid var(--blue);
+}
+
+
+/* accountform */
+.accountform{
+    width: 100%;
+}
+
+.accountform_main{
+    width: 100%;
+    max-width: 972px;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.accountform_main_title{
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--black-bg);
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.accountform_main_form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.accountform_main_input{
+    width: 100%;
+    height: 50px;
+    border: 1px solid var(--gray-bg);
+    display: flex;
+    flex-direction: column;
+    padding: 5px 10px;
+    border-radius: 2px;
+}
+
+.accountform_main_input_title{
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--gray-bg);
+}
+
+.accountform_main_input input{
+    flex: 1;
+    font-size: 16px;
+}
+
+.accountform_main_btns{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accountform_main_btns_left{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.accountform_main_btn{
+    width: max-content;
+    padding: 8px 24px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--white);
+    border-radius: 2px;
+}
+
+.accountform_main_btn_update{
+    background: var(--blue);
+}
+
+.accountform_main_btn_cencel{
+    background: var(--white-bg1);
+    color: var(--black-bg);
+}
+
+.accountform_main_btn_logout{
+    background: var(--black-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.accountform_main_btn_logout span{
+    font-size: 19px;
+    position: relative;
+    top: 2px;
+}
+
+.accountform_main_btns_right_title{
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--black-bg);
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    /* accountheader */
+    .accountheader_main_title{
+        height: 120px;
+    }
+
+    .accountheader_main_title p {
+        font-size: 24px;
+    }
+
+    /* accountform */
+    .accountform_main_btns{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+    }
+
+    .accountform_main_btns_left {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .accountform_main_btns_right{
+        display: flex;
+        flex-direction: column;
+    }
+    .accountform_main_btns_right_title{
+        display: flex;
+        margin-bottom: 20px;
+    }
+}

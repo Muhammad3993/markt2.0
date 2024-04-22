@@ -81,4 +81,8 @@
     .electronics_box_title{
         font-size: 20px;
     }
+
+    .electronics_box_product_img{
+        height: 350px;
+    }
 }

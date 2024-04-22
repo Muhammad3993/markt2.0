@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import {  useEffect, useState } from 'react';
 // css
 import './footer.css';
 // react-router-dom
@@ -8,13 +8,23 @@ import img from '../../assets/images/logo1.png';
 import img1 from '../../assets/images/logoType1.webp';
 // icons
 import { RiTelegramFill, RiInstagramFill } from 'react-icons/ri'
+import { footerApi } from '../../data/footerApi';
 
 // Context
-import { useContextProvider } from '../../context/Context'
 
 
 const Footer = () => {
-    const {footerResponse} = useContextProvider()
+    const [footerResponse, setFooterResponse] = useState(null);
+
+
+    useEffect(() => {
+        const getFooter = async () => {
+            const response = await footerApi.getFooter()
+            setFooterResponse(response)
+        }
+  
+        getFooter();
+    }, [])
   return (
     <footer>
         <div className="container">

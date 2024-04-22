@@ -20,11 +20,13 @@ import img2 from '../../assets/images/UZB.jpeg'
 // Cmponent
 import NavbarSearch from "./NavbarSearch";
 import { headerApi } from "../../data/headerApi";
+import Sign from "../sign/Sign";
 
 const Navbar = () => {
   const [headerResponse, setHeaderResponse] = useState(null)
   const [sidebar, setSidebar] = useState(false)
   const [isOpenBar, setIsOpenBar] = useState();
+  const [isOpenSign, setIsOpenSign] = useState(false);
   const handleIsOpenBar = () => {
     setIsOpenBar(!isOpenBar)
   };
@@ -62,8 +64,7 @@ const Navbar = () => {
     }
   ];
 
-  const user = true;
-
+  const [user, setUser] = useState(true)
   useEffect(() => {
     const getHeader = async () => {
       const response = await headerApi.getHeader()
@@ -86,7 +87,7 @@ const Navbar = () => {
 
   return (
     <>
-      <NavbarSearch isOpenSearch={isOpenSearch} setIsOpenSearch={setIsOpenSearch}/>
+      <NavbarSearch isOpenSearch={isOpenSearch} setIsOpenSearch={setIsOpenSearch} positionTop={positionTop}/>
       <nav className={positionTop ? "positionTopNav" : ""}>
         <div className="container">
           <div className="navbar">
@@ -101,8 +102,8 @@ const Navbar = () => {
               }
               <>
                     {
-                      headerResponse && headerResponse.slice(0, 3).map((item, i) => (
-                        <NavLink to={item.slug} className={selectCatalog ? "nav_link nav_link_active" : "nav_link"} key={i} onClick={
+                      headerResponse && headerResponse.slice(0, 4).map((item, i) => (
+                        <NavLink to={`${item.type}/${item.slug}`} className={selectCatalog ? "nav_link nav_link_active" : "nav_link"} key={i} onClick={
                           () => {
                             setSelectCatalog(item.id)
                             setSelectCatalog1(1);
@@ -111,31 +112,31 @@ const Navbar = () => {
                         }>{item.title}</NavLink>
                       ))
                     }
-                    {/* <div className={!isOpenBar ? 'nav_menu nav_menu_none' : 'nav_menu'}>
+                    <div className={!isOpenBar ? 'nav_menu nav_menu_none' : 'nav_menu'}>
                       <div className='navbar_menu'>
                         <div className="container">
                           <div className="navbar_menu_box">
-                            <div className="navbar_menu_box_sidebar">
+                            {/* <div className="navbar_menu_box_sidebar">
                               {
-                                selectCatalog !== null ? data[selectCatalog - 1]?.title.map(item => (
+                                headerResponse !== null ? headerResponse[selectCatalog - 1]?.children.map(item => (
                                   <div key={item.id} className={selectCatalog ? "navbar_menu_box_sidebar_title catalog_active" : "navbar_menu_box_sidebar_title"} onClick={() => {
                                     setSelectCatalog1(item.id)
                                   }}>{item.name}</div>
                                 )) : ''
                               }
-                            </div>
-                            <div className='navbar_menu_box_body'>
+                            </div> */}
+                            {/* <div className='navbar_menu_box_body'>
                               {
                                 selectCatalog1 !== null ? data[selectCatalog - 1]?.title[selectCatalog1 - 1]?.pages.map(item => (
                                   <NavLink  to={'/'} key={item.id} className="navbar_menu_box_body_link">{item.name}</NavLink>
                                 )) : '' 
                               }
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>
                       <div className="nav_overlay" onClick={handleIsOpenBar}></div>
-                            </div> */}
+                    </div>
               </>
             </div>
             <div className="navbar_center-block">
@@ -226,12 +227,17 @@ const Navbar = () => {
               <button className="navbar_search" onClick={() => setIsOpenSearch(true)}><span><FiSearch/></span><p>search</p></button>
               <NavLink to={'/cart'} className="navbar_link"><CgShoppingBag/><span>100</span></NavLink>
               <NavLink to={'/heart'} className="navbar_link navbar_link_heart"><FaRegHeart/><span>0</span></NavLink>
-              <NavLink to={'/user'} className="navbar_link navbar_link_user"><RiUser3Line/></NavLink>
+              {
+                !user ? 
+                <div className="side_bar_login" onClick={() => setIsOpenSign(true)}>login</div> : 
+                <NavLink to={'/account'} className="navbar_link side_bar_link"><RiUser3Line/></NavLink>
+              }
             </div>
           </div>
         </div>
       </nav>
       <div className="free_nav"></div>
+      <Sign isOpenSign={isOpenSign} setIsOpenSign={setIsOpenSign} />
     </>
   )
 }

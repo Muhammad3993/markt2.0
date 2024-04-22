@@ -5,22 +5,34 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements,} 
 import Home from "./pages/Home"
 import CategoryShow from "./pages/CategoryShow"
 import ProductDetail from "./pages/ProductDetail.jsx"
+import Cart from "./pages/Cart.jsx"
+import SearchResult from "./pages/SearchResult.jsx"
+import Products from "./pages/Products"
+import Account from "./pages/Account.jsx"
+import Order from "./pages/Order.jsx"
+import About from "./pages/About.jsx"
 // Layouts
 import MainLayout from "./layout/MainLayout"
-import Products from "./pages/Products"
+import AccountLayout from "./layout/AccountLayout.jsx"
 // context
 import { ContextProvider } from "./context/Context"
 
 
 function App() {
-
   const routes = createBrowserRouter(
     createRoutesFromElements(
-      <Route element={<MainLayout/>}>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/products" element={<Products/>}/>
-        <Route path="/products/:slug" element={<ProductDetail/>}/>
-        <Route path="/categories/:slug" element={<CategoryShow/>}/>
+      <Route path="/" element={<MainLayout/>}>
+        <Route index element={<Home/>}/>
+        <Route path="products" element={<Products/>}/>
+        <Route path="products/:slug" element={<ProductDetail/>}/>
+        <Route path="categories/:slug" element={<CategoryShow/>}/>
+        <Route path="cart" element={<Cart/>} />
+        <Route path="search" element={<SearchResult/>} />
+        <Route element={<AccountLayout/>}>
+          <Route path="/account" element={<Account/>}/>
+          <Route path="/order" element={<Order/>}/>
+          <Route path="/about" element={<About/>}/>
+        </Route>
       </Route>
     )
   )

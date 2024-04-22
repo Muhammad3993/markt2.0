@@ -7,9 +7,9 @@ import img from '../../assets/images/img.png'
 // react-router-dom
 import { NavLink } from "react-router-dom"
 
-const NavbarSearch = ({isOpenSearch, setIsOpenSearch}) => {
+const NavbarSearch = ({isOpenSearch, setIsOpenSearch, positionTop}) => {
   const [products, setProducts] = useState([]);
-
+  
   useEffect(() => {
     const handleResize = () => {
       const screenWidth = window.innerWidth
@@ -37,7 +37,7 @@ const NavbarSearch = ({isOpenSearch, setIsOpenSearch}) => {
   
 
   return (
-    <div className={isOpenSearch ? 'nav-search nav-search_show' : 'nav-search'}>
+    <div className={isOpenSearch ? `nav-search nav-search_show ${positionTop ? 'sidebarPosition' : ''}` : 'nav-search'}>
         <div className='nav_search'>
           <div className="nav_search-container">
             <div className="nav_search_searchbox">
@@ -73,7 +73,10 @@ const NavbarSearch = ({isOpenSearch, setIsOpenSearch}) => {
               </div>
             </div>
             <div className="nav_search_popular">
-              <p className="nav_search_popular_title">Recently searched</p>
+              <div className="nav_search_popular_nav">
+                <p className="nav_search_popular_title">Recently searched</p>
+                <p className="nav_search_popular_nav_remove">Remove History</p>
+              </div>
               <div className="nav_search_popular_boxes">
                 <div className="nav_search_popular_box">
                   <span><FiSearch/></span>

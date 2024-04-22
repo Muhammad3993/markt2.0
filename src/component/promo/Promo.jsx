@@ -22,21 +22,25 @@ const Promo = () => {
     <div className='promo'>
       <div className="container">
         <div className="promo_box">
-          <div className="promo_box_vid">
-            <video src={vid} autoPlay loop muted/>
-            <div className="promo_box_vid_overlay">
-              <p className='promo_box_vid_text'>Incredible speed and battery life?</p>
-            </div>
-          </div>
+            {
+              promoResponse && promoResponse.left && (
+                <div className="promo_box_vid">
+                  <video src={promoResponse.left.image} autoPlay loop muted/>
+                  <div className="promo_box_vid_overlay">
+                    <p className='promo_box_vid_text'>{promoResponse.left.title}</p>
+                  </div>
+                </div>
+              )
+            }
           {
-            promoResponse && promoResponse.left && (
-              <div className="promo_box_sale" key={promoResponse.left.id}>
+            promoResponse && promoResponse.right && (
+              <div className="promo_box_sale">
                 <div className="promo_box_sale_data">
                   <p className='promo_box_sale_data_name'>Apple Watch Series 9</p>
-                  <p className='promo_box_sale_data_title'>{promoResponse.left.title}</p>
-                  <p className='promo_box_sale_data_price'>from: $399</p>
+                  <p className='promo_box_sale_data_title'>{promoResponse.right.title}</p>
+                  <p className='promo_box_sale_data_price'>{promoResponse.right.body}</p>
                   <div className="promo_box_sale_data_img">
-                    <img src={promoResponse.left.image} alt="" />
+                    <img src={promoResponse.right.image} alt="" />
                   </div>
                 </div>
                 <div className="promo_box_sale_btn">

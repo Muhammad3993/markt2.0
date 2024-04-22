@@ -1,0 +1,146 @@
+.sign{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 13;
+}
+
+.sign_close{
+    display: none;
+}
+
+.sign_box{
+    width: 100%;
+    height: 300px;
+    max-width: 800px;
+    margin: auto;
+    background: var(--white);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    padding: 30px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sign_overlay{
+    width: 100%;
+    height: 100%;
+    background: var(--black-rgb);
+}
+
+.sign_box_close{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.sign_box_title{
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--black-bg);
+}
+
+.sign_boxes{
+    width: 100%;
+    max-width: 450px;
+    margin-top: 30px;
+}
+
+.sign_box_google{
+    width: 100%;
+    height: 45px;
+    background: var(--black-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 6px;
+}
+
+.sign_box_google p {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--white);
+}
+
+.sign_box_google span {
+    margin-top: 6px;
+    font-size: 24px;
+}
+
+.sign_boxes_duo{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sign_box_telegram{
+    width: 50%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--blue-bg);
+    border-radius: 6px;
+    color: var(--blue-bg);
+    gap: 10px;
+}
+
+.sign_box_telegram p {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.sign_box_telegram span{
+    font-size: 24px;
+    margin-top: 5px;
+}
+
+.sign_box_git{
+    width: 50%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--black-bg);
+    border-radius: 6px;
+    gap: 10px;
+    color: var(--black-bg);
+}
+
+.sign_box_git_icons{
+    display: flex;
+    position: relative;
+}
+
+.sign_box_git_icons span:first-child{
+    font-size: 30px;
+}
+
+.sign_box_git_icons span:nth-child(2) {
+    font-size: 20px;
+    position: absolute;
+    top: 24px;
+    left: 4.5px;
+}
+
+.sign_boxes_title{
+    text-align: center;
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+@media screen and (max-width: 868px) {
+    .sign_box{
+        width: 100%;
+        justify-content: center;
+    }
+}

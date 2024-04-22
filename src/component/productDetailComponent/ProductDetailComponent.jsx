@@ -7,33 +7,34 @@ import { useParams } from 'react-router-dom';
 // icons
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
+import { FaHeart, FaRegHeart } from 'react-icons/fa6';
+// Swiper
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import 'swiper/css/pagination';
+
 
 const ProductDetail = () => {
+  const [count, setCount] = useState(0)
 
+  const handleDec = () => {
+    if (count > 0) {
+      setCount(count-1)
+    }
+  }
+  
+  const handleInc = () => {
+    if(count < 10){
+        setCount(count+1)
+    }
+}
+
+  // Img zoom
   const [activeIndex, setActiveIndex] = useState(null);
 
   const handleItemClick = (index) => {
     setActiveIndex(index === activeIndex ? null : index);
   };
-  // const [isHovered, setIsHovered] = useState(false);
-  // const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  // const handleMouseEnter = () => {
-  //   setIsHovered(true);
-  // };
-
-  // const handleMouseLeave = () => {
-  //   setIsHovered(false);
-  // };
-
-  // const handleMouseMove = e => {
-  //   if (isHovered) {
-  //     const { left, top, width, height } = e.target.getBoundingClientRect();
-  //     const x = (e.pageX - left) / width * 100;
-  //     const y = (e.pageY - top) / height * 100;
-  //     setPosition({ x, y });
-  //   }
-  // };
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [positions, setPositions] = useState({});
@@ -52,6 +53,10 @@ const ProductDetail = () => {
     const y = (e.pageY - top) / height * 100;
     setPositions({ ...positions, [index]: { x, y } });
   };
+  // Img zoom
+
+  const [heart, setHeart] = useState();
+
 
   const [productDetailResponse, setproductDetailResponse] = useState(null);
   const [isOpenDesc, setIsOpenDesc] = useState();
@@ -64,17 +69,19 @@ const ProductDetail = () => {
       setproductDetailResponse(response)
     }
     getProductDetailApi();
-  }, [slug])
+  }, [slug]);
+
+
 
   return (
     <div className='detail'>
       <div className="container">
         <div className="detail_main">
-            <div className="detail_main_left">
+            <div className='detail_main_left'>
               <div className="detail_main_left_images">
                 {
                   productDetailResponse && productDetailResponse.data.images.map((img, index) => (
-                    <div className={productDetailResponse.data.images.length === 1 ? "detail_main_left_img full-width" : productDetailResponse.data.images.length === 3 ? index === 2 ? "detail_main_left_img full-width" : "detail_main_left_img" : "detail_main_left_img"} onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave} onMouseMove={(e) => handleMouseMove(e, index)} key={index}>
+                    <div className={productDetailResponse.data.images.length === 1 | 2 ? "detail_main_left_img full-width" : productDetailResponse.data.images.length === 3 ? index === 2 ? "detail_main_left_img full-width" : "detail_main_left_img" : "detail_main_left_img"} onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave} onMouseMove={(e) => handleMouseMove(e, index)} key={index}>
                       <img src={img} alt="" style={hoveredIndex === index ? { 
                         position: 'absolute',
                         top: 0,
@@ -119,6 +126,7 @@ const ProductDetail = () => {
               }
             </div>
             <div className="detail_main_right">
+              <div className={heart ? "detail_main_right_heart detail_main_right_heart_liked" : "detail_main_right_heart"} onClick={() => setHeart(!heart)}>{!heart ? <FaRegHeart/> : <FaHeart/>}</div>
               <p className='prodeuct_detail_brand'>{productDetailResponse && productDetailResponse.data.brand.title}</p>
               <p className="product_detail_title">{productDetailResponse && productDetailResponse.data.title}</p>
               {
@@ -135,13 +143,13 @@ const ProductDetail = () => {
                   </div>
                 ))
               }       
-              <div className="product_details">
+              <div className="product_details_quantity">
                 <p className="product_detail_color_title">Quantity</p>
                 <div className="product_detail_quantity">
                   <div className="product_detail_quantity_box">
-                    <button><FaMinus/></button>
-                    <p>0</p>
-                    <button><FaPlus/></button>
+                    <button onClick={handleDec}><FaMinus/></button>
+                    <p>{count}</p>
+                    <button onClick={handleInc}><FaPlus/></button>
                   </div>
                   <p className='product_detail_quantity_p'>23 in stock</p>
                 </div>
@@ -151,6 +159,24 @@ const ProductDetail = () => {
                 <button className='detail_main_right_bottom_btn'>Add to card</button>
                 <button className='detail_main_right_bottom_btn1'>Buy now</button>
               </div>
+            </div>
+            <div className="detail_main_swiper">
+              <Swiper 
+                pagination={{
+                  clickable: true,
+                }}
+                modules={[Pagination]}
+                className="mySwiper">
+                {
+                  productDetailResponse && productDetailResponse.data.images.map((img, index) => (
+                    <SwiperSlide key={index}>
+                      <div className="detail_main_swiper_img">
+                        <img src={img} alt="" />
+                      </div>
+                    </SwiperSlide>
+                  ))
+                }
+              </Swiper>
             </div>
         </div>
         

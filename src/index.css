@@ -19,8 +19,10 @@ body{
     --white-bg: #FEFEFE;
     --white-bg1: #F5F5F7;
     --gray-bg: #BFC0C0;
+    --gray-bg1: #D9D9D980;
     --gray-rgb: rgba(0, 0, 0, .3);
     --blue: #07059A;
+    --blue-bg: #3eadff;
     --red-bg: #E52134;
 }
 
