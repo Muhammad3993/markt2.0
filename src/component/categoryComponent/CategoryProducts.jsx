@@ -10,7 +10,7 @@ import { FaPlus, FaRegHeart } from 'react-icons/fa';
 import { AiOutlineClose } from 'react-icons/ai';
 
 const CategoryProducts = () => {
-    const {productsResponse, currentPage, setCurrentPage, pages, productsColumn, setProductsColumn, setIsOpenFilter, selectData, handleClear, handleAply} = useContextProvider();
+    const {productsResponse, currentPage, pages, productsColumn, setProductsColumn, setIsOpenFilter, selectData, handleClear, handleAply} = useContextProvider();
   return (
     <>
         <div className="cat_component_main_bottom">
@@ -82,7 +82,9 @@ const CategoryProducts = () => {
                                         </div>
                                     ))
                                 }
-                                <p className="filter_bottom_el_clear" onClick={handleClear}>Clear All</p>
+                                <p className="filter_bottom_el_clear" onClick={() => {
+                                    handleClear(1)
+                                }}>Clear All</p>
                             </div>
                         </div> : ''
                     }

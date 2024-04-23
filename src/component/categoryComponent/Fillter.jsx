@@ -56,12 +56,6 @@ const Fillter = () => {
     // const tagIds = selectedTags.map(tag => tag.id);
     // const brandIds = selectedBrands.map(brand => brand.id);
 
-    const SelectData = {
-        categories: selectedCategories,
-        tags: selectedTags,
-        brands: selectedBrands
-    };
-
     
 
   return (

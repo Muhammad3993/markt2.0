@@ -48,20 +48,26 @@ export const ContextProvider = ({ children }) => {
  // clear
 
 
- const handleClear = () => {
+ const handleClear = async (page = 1) => {
     setSelectData(null);
-    setSelectedCategories(selectedCategories.filter(el => el.slug !== slug));
-    setSelectedTags([]);
-    setSelectedBrands([]);
+    const productResponse = await productsApi.getProductsApi(page, '', '', '')
+    setProductsResponse(productResponse);
  }
+
+ const SelectData = {
+    categories: selectedCategories,
+    tags: selectedTags,
+    brands: selectedBrands
+};
 
  const handleAply = async (page = 1) => {
     setIsOpenFilter(false);
     setCurrentPage(page);
+    setSelectData(SelectData);
     const categoryIds = selectedCategories.map(el => el.id);
     const tagIds = selectedTags.map(el => el.id);
     const brandIds = selectedBrands.map(el => el.id);
-    const productResponse = await productsApi.getProductsApi(page, categoryIds, tagIds, brandIds)
+    const productResponse = await productsApi.getProductsApi(page, categoryIds, tagIds, brandIds);
     setProductsResponse(productResponse);
 }
   
