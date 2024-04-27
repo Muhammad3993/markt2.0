@@ -297,7 +297,8 @@
     cursor: pointer;
 }
 
-.cart_main_quantity{
+.cart_main_quantity,
+.cart_main_remove_none{
     display: none;
 }
 

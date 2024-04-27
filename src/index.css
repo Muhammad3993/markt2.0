@@ -18,6 +18,7 @@ body{
     --black-rgb: radial-gradient(71.06% 126.5% at 50% 50%, rgba(29, 29, 29, 0) 0%, #1D1D1D 100%);
     --white-bg: #FEFEFE;
     --white-bg1: #F5F5F7;
+    --white-bg2: #FAFAFA;
     --gray-bg: #BFC0C0;
     --gray-bg1: #D9D9D980;
     --gray-rgb: rgba(0, 0, 0, .3);

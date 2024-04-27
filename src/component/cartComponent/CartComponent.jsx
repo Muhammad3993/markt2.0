@@ -89,7 +89,7 @@ const CartComponent = () => {
                                             <button onClick={handleInc} className={`cart_main_quantity_dec ${count === max ? 'cart_main_quantity_dec-opacity' : ''}`}><FaPlus/></button>
                                         </div>
                                         <p className='product_detail_quantity_p'>23 in stock</p>
-                                        <p className='cart_main_remove'>Remove <span><RiDeleteBinLine/></span></p>
+                                        <p className='cart_main_remove cart_main_remove_none'>Remove <span><RiDeleteBinLine/></span></p>
                                     </div>
                                     <div className="cart_main_total_box cart_main_quantity">
                                         <p className='cart_main_product_txt_data_title'>Price:</p>

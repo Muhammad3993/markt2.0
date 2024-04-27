@@ -7,6 +7,7 @@ import './electronics.css'
 import { topCategoriesApi } from '../../data/topCategoriesApi'
 
 const Electronics = () => {
+  const [isLoading, setLoading] = useState(true)
   
   // For scroll
   const ref = useRef(null)
@@ -53,7 +54,6 @@ const Electronics = () => {
   }
   // For scroll
   
-
   const [topCategoriesResponse, setTopCategoriesResponse] = useState(null);
 
 
@@ -61,8 +61,8 @@ const Electronics = () => {
     const getTopCategories = async () => {
       const response = await topCategoriesApi.getTopCategories();
       setTopCategoriesResponse(response);
+      setLoading(false)
     }
-
     getTopCategories()
   },[])
 
@@ -71,18 +71,22 @@ const Electronics = () => {
         <div className="container">
             <div className="electronics_box">
                 <p className='electronics_box_title'>Electronics</p>
-                <div className="electronics_box_products" onScroll={handleScroll} ref={ref}>
-                  {
-                    topCategoriesResponse && topCategoriesResponse.data.slice(0, 3).map(item => (
-                      <div className="electronics_box_product" key={item.id}>
-                        <div className="electronics_box_product_img">
-                          <img src={item.image} alt="" />
+                  <div className="electronics_box_products" 
+                    onScroll={handleScroll} 
+                    ref={ref}
+                  >
+                    {
+                      isLoading ? "Loading.." :
+                      topCategoriesResponse && topCategoriesResponse.data.slice(0, 3).map(item => (
+                        <div className="electronics_box_product" key={item.id}>
+                          <div className="electronics_box_product_img">
+                            <img src={item.image} alt="" />
+                          </div>
+                          <Link to={`/categories/${item.slug}`} className='electronics_box_product_title'>{item.title}</Link>
                         </div>
-                        <Link to={`/categories/${item.slug}`} className='electronics_box_product_title'>{item.title}</Link>
-                      </div>
-                    ))
-                  }
-                </div>
+                      ))
+                    }
+                  </div>
             </div>
         </div>
     </div>

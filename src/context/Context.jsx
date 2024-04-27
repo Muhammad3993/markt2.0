@@ -40,37 +40,38 @@ export const ContextProvider = ({ children }) => {
   const setCategorySlug = (categorySlug) => {
     setSlug(categorySlug);
   };
-  // for fillter
-//   const [categoryId, setCategoryId] = useState(null);
-//   const [tagId, setTagId] = useState('');
-//   const [brandId, setBrandId] = useState('');
+
 
  // clear
 
 
- const handleClear = async (page = 1) => {
-    setSelectData(null);
-    const productResponse = await productsApi.getProductsApi(page, '', '', '')
-    setProductsResponse(productResponse);
- }
+    const handleClear = async (page = 1) => {
+        setSelectData(null);
+        setCurrentPage(page);
+        const productResponse = await productsApi.getProductsApi(page, '', '', '')
+        setProductsResponse(productResponse);
+    }
 
- const SelectData = {
-    categories: selectedCategories,
-    tags: selectedTags,
-    brands: selectedBrands
-};
+    const SelectData = {
+        categories: selectedCategories,
+        tags: selectedTags,
+        brands: selectedBrands
+    };
 
- const handleAply = async (page = 1) => {
-    setIsOpenFilter(false);
-    setCurrentPage(page);
-    setSelectData(SelectData);
-    const categoryIds = selectedCategories.map(el => el.id);
-    const tagIds = selectedTags.map(el => el.id);
-    const brandIds = selectedBrands.map(el => el.id);
-    const productResponse = await productsApi.getProductsApi(page, categoryIds, tagIds, brandIds);
-    setProductsResponse(productResponse);
-}
-  
+    const handleAply = async (page = 1) => {
+        setIsOpenFilter(false);
+        setCurrentPage(page);
+        setSelectData(SelectData);
+        const categoryIds = selectedCategories.map(el => el.id);
+        const tagIds = selectedTags.map(el => el.id);
+        const brandIds = selectedBrands.map(el => el.id);
+        const productResponse = await productsApi.getProductsApi(page, categoryIds, tagIds, brandIds);
+        setProductsResponse(productResponse);
+    }
+    const handlePagination = async () => {
+        
+    }
+
 
 
     useEffect(() => {
@@ -88,19 +89,6 @@ export const ContextProvider = ({ children }) => {
         
         getCategoryShowApi()
     }, [slug]);
-
-    // useEffect(() => {
-    //     const getProductsApi = async () => {
-    //         if(selectedCategories.length > 0){
-    //             const categoryIds = selectedCategories.map(el => el.id);
-    //             const tagIds = selectedTags.map(el => el.id);
-    //             const brandIds = selectedBrands.map(el => el.id);
-    //             setProductsResponse(response)
-    //         }
-    //     }
-    //     getProductsApi()
-    // }, [currentPage, selectedCategories, selectedTags, selectedBrands]);
-
 
     useEffect(() => {
         const getCategoriesApi = async () => {
