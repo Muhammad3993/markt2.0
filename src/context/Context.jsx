@@ -58,18 +58,23 @@ export const ContextProvider = ({ children }) => {
         brands: selectedBrands
     };
 
-    const handleAply = async (page = 1) => {
+    const handleAply = async () => {
         setIsOpenFilter(false);
-        setCurrentPage(page);
         setSelectData(SelectData);
         const categoryIds = selectedCategories.map(el => el.id);
         const tagIds = selectedTags.map(el => el.id);
         const brandIds = selectedBrands.map(el => el.id);
-        const productResponse = await productsApi.getProductsApi(page, categoryIds, tagIds, brandIds);
+        const productResponse = await productsApi.getProductsApi(1, categoryIds, tagIds, brandIds);
         setProductsResponse(productResponse);
     }
-    const handlePagination = async () => {
-        
+
+    const handlePagination = async (page = 1) => {
+        setCurrentPage(page);
+        const categoryIds = selectedCategories.map(el => el.id);
+        const tagIds = selectedTags.map(el => el.id);
+        const brandIds = selectedBrands.map(el => el.id);
+        const productPageResponse = await productsApi.getProductsApi(page, categoryIds ? categoryIds : 1, tagIds, brandIds);
+        setProductsResponse(productPageResponse);
     }
 
 
@@ -133,7 +138,8 @@ export const ContextProvider = ({ children }) => {
         setSelectedTags,
         selectedBrands,
         setSelectedBrands,
-        handleAply
+        handleAply,
+        handlePagination
     }
 
     return (

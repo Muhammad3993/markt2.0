@@ -10,7 +10,7 @@ import { FaPlus, FaRegHeart } from 'react-icons/fa';
 import { AiOutlineClose } from 'react-icons/ai';
 
 const CategoryProducts = () => {
-    const {productsResponse, currentPage, pages, productsColumn, setProductsColumn, setIsOpenFilter, selectData, handleClear, handleAply} = useContextProvider();
+    const {productsResponse, currentPage, pages, productsColumn, setProductsColumn, setIsOpenFilter, selectData, handleClear, handleAply, handlePagination} = useContextProvider();
   return (
     <>
         <div className="cat_component_main_bottom">
@@ -95,7 +95,7 @@ const CategoryProducts = () => {
                                     <div className="pagination">                                 
                                     {
                                         pages.map((page, index) => (
-                                            <div key={index} className={currentPage === (index + 1) ? 'cat_component_main_products_pagination_page_btn cat_component_main_products_pagination_page_btn_active' : 'cat_component_main_products_pagination_page_btn'} onClick={() => handleAply(index + 1)}>
+                                            <div key={index} className={currentPage === (index + 1) ? 'cat_component_main_products_pagination_page_btn cat_component_main_products_pagination_page_btn_active' : 'cat_component_main_products_pagination_page_btn'} onClick={() => handlePagination(index + 1)}>
                                                 {index + 1}
                                             </div>
                                         ))
