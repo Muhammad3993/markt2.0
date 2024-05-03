@@ -6,7 +6,7 @@ import { FaMinus, FaPlus } from "react-icons/fa6"
 // Context
 import { useContextProvider } from '../../context/Context'
 const Fillter = () => {
-    const { isOpenFilter, setIsOpenFilter, cataegoriesResponse, tagsResponse, brandsResponse, setSelectData, selectedCategories, setSelectedCategories, selectedTags, setSelectedTags, handleAply, selectedBrands, setSelectedBrands} = useContextProvider()
+    const { isOpenFilter, setIsOpenFilter, cataegoriesResponse, tagsResponse, brandsResponse, selectedCategories, setSelectedCategories, selectedTags, setSelectedTags, handleAply, selectedBrands, setSelectedBrands} = useContextProvider()
     // for open
     const [fillterCategory, setFillterCategory] = useState();
     const [fillterTag, setFillterTag] = useState();
@@ -102,9 +102,7 @@ const Fillter = () => {
                                 cataegoriesResponse && cataegoriesResponse.data.map(item => (
                                     <label className="fillter_main_body_cats_first" key={item.id}>
                                         <input name="category" type="checkbox" onChange={(e) => {
-                                            if (handleAply) {
-                                                handleCategoryChange(item, e.target.checked)
-                                            }
+                                            handleCategoryChange(item, e.target.checked)
                                         }}/>
                                         <span className="fillter_main_body_cats_first_title">{item.title}</span>
                                     </label>                            
