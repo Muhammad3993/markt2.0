@@ -6,7 +6,7 @@ import "./newRelaese.css"
 // img
 import img from "../../assets/images/image.png";
 import img1 from "../../assets/images/image1.png";
-import img2 from "../../assets/images/img.png";
+import img2 from "../../assets/images/watch.webp";
 
 const NewRelaese = () => {
 
