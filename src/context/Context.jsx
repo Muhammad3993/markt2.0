@@ -22,7 +22,7 @@ export const ContextProvider = ({ children }) => {
 
   //filterData
   const [selectData, setSelectData] = useState(null);
-//   
+  //   
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
@@ -43,8 +43,6 @@ export const ContextProvider = ({ children }) => {
 
 
  // clear
-
-
     const handleClear = async (page = 1) => {
         setSelectData(null);
         setCurrentPage(page);
@@ -70,11 +68,12 @@ export const ContextProvider = ({ children }) => {
 
     const handlePagination = async (page = 1) => {
         setCurrentPage(page);
-        const categoryIds = selectedCategories.map(el => el.id);
-        const tagIds = selectedTags.map(el => el.id);
-        const brandIds = selectedBrands.map(el => el.id);
-        const productPageResponse = await productsApi.getProductsApi(page, categoryIds ? categoryIds : 1, tagIds, brandIds);
-        setProductsResponse(productPageResponse);
+        // const categoryIds = selectedCategories.map(el => el.id);
+        // const tagIds = selectedTags.map(el => el.id);
+        // const brandIds = selectedBrands.map(el => el.id);
+        // const productPageResponse = await productsApi.getProductsApi(page, categoryIds ? categoryIds : 1, tagIds, brandIds);
+        // setProductsResponse(productPageResponse);
+        handleClear(page)
     }
 
 
