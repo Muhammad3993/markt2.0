@@ -33,7 +33,7 @@ const CategoryProducts = () => {
         </div>
                 <div className="cat_component_main_products">
                     {
-                        productsResponse && productsResponse.data.map(item => (
+                        productsResponse && productsResponse.length !== 0 ? productsResponse.data.map(item => (
                             <div className={productsColumn ? "cat_component_main_product" : "column_three"} key={item.id}>
                                 <div className="cat_component_main_product_data">
                                     <div className="cat_component_main_product_img">
@@ -51,7 +51,7 @@ const CategoryProducts = () => {
                                 }
                                 <button className='cat_component_main_product_btn'><span>+</span> <p>Add to cart</p></button>
                             </div>
-                        ))
+                        )) : <h1>Free</h1>
                     }
                     {
                         selectData && Number(selectData.categories.length + selectData.tags.length + selectData.brands.length) != '' ?

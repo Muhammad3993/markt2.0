@@ -6,7 +6,7 @@ import { FaMinus, FaPlus } from "react-icons/fa6"
 // Context
 import { useContextProvider } from '../../context/Context'
 const Fillter = () => {
-    const { isOpenFilter, setIsOpenFilter, cataegoriesResponse, tagsResponse, brandsResponse, selectedCategories, setSelectedCategories, selectedTags, setSelectedTags, handleAply, selectedBrands, setSelectedBrands} = useContextProvider()
+    const { isOpenFilter, setIsOpenFilter, selectedCategories, setSelectedCategories, selectedTags, setSelectedTags, handleAply, selectedBrands, setSelectedBrands, filtersResponse} = useContextProvider()
     // for open
     const [fillterCategory, setFillterCategory] = useState();
     const [fillterTag, setFillterTag] = useState();
@@ -97,9 +97,9 @@ const Fillter = () => {
                                 <p><FaPlus /></p> 
                             }
                         </div>
-                        <div className={fillterCategory ? `fillter_main_body_cats ${cataegoriesResponse && cataegoriesResponse.data.length !== 18 ? "fillter_main_body_cats_disable filter_height" : "fillter_main_body_cats_disable"}` : "fillter_main_body_cats"}>
+                        <div className={fillterCategory ? `fillter_main_body_cats ${filtersResponse && filtersResponse.categories.length !== 18 ? "fillter_main_body_cats_disable filter_height" : "fillter_main_body_cats_disable"}` : "fillter_main_body_cats"}>
                             {
-                                cataegoriesResponse && cataegoriesResponse.data.map(item => (
+                                filtersResponse && filtersResponse.categories.map(item => (
                                     <label className="fillter_main_body_cats_first" key={item.id}>
                                         <input name="category" type="checkbox" onChange={(e) => {
                                             handleCategoryChange(item, e.target.checked)
@@ -124,9 +124,9 @@ const Fillter = () => {
                                 <p><FaPlus /></p>
                             }
                         </div>
-                        <div className={fillterTag ? `fillter_main_body_cats ${tagsResponse && tagsResponse.data.length !== 15 ? "fillter_main_body_cats_disable filter_height" : "fillter_main_body_cats_disable"}` : "fillter_main_body_cats"}>
+                        <div className={fillterTag ? `fillter_main_body_cats ${filtersResponse && filtersResponse.tags.length !== 15 ? "fillter_main_body_cats_disable filter_height" : "fillter_main_body_cats_disable"}` : "fillter_main_body_cats"}>
                             {
-                                tagsResponse && tagsResponse.data.map(item => (
+                                filtersResponse && filtersResponse.tags.map(item => (
                                     <label className="fillter_main_body_cats_first" key={item.id}>
                                         <input name="tag" type="checkbox" onChange={(e) => handleTagChange(item, e.target.checked)}/>
                                         <span className="fillter_main_body_cats_first_title">{item.title}</span>
@@ -149,9 +149,9 @@ const Fillter = () => {
                                 <p><FaPlus /></p>
                             }
                         </div>
-                        <div className={fillterBrand ? `fillter_main_body_cats ${brandsResponse && brandsResponse.data.length !== 18 ? "fillter_main_body_cats_disable filter_height" : "fillter_main_body_cats_disable"}` : "fillter_main_body_cats"}>
+                        <div className={fillterBrand ? `fillter_main_body_cats ${filtersResponse && filtersResponse.brands.length !== 14 ? "fillter_main_body_cats_disable filter_height" : "fillter_main_body_cats_disable"}` : "fillter_main_body_cats"}>
                             {
-                                brandsResponse && brandsResponse.data.map(item => (
+                                filtersResponse && filtersResponse.brands.map(item => (
                                     <label className="fillter_main_body_cats_first" key={item.id}>
                                         <input name="brand" type="checkbox" onChange={(e) => handleBrandChange(item, e.target.checked)}/>
                                         <span className="fillter_main_body_cats_first_title">{item.title}</span>
