@@ -12,10 +12,19 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css/pagination';
+import { useContextProvider } from '../../context/Context';
 
 
 const ProductDetail = () => {
-  const [count, setCount] = useState(0)
+
+  const { addToFavourite, isFavourite } = useContextProvider();
+
+  const handleClick = (item) => {
+    addToFavourite(item);
+  };
+
+  const [count, setCount] = useState(0);
+
 
   const handleDec = () => {
     if (count > 0) {
@@ -55,7 +64,7 @@ const ProductDetail = () => {
   };
   // Img zoom
 
-  const [heart, setHeart] = useState();
+
 
 
   const [productDetailResponse, setproductDetailResponse] = useState(null);
@@ -126,7 +135,9 @@ const ProductDetail = () => {
               }
             </div>
             <div className="detail_main_right">
-              <div className={heart ? "detail_main_right_heart detail_main_right_heart_liked" : "detail_main_right_heart"} onClick={() => setHeart(!heart)}>{!heart ? <FaRegHeart/> : <FaHeart/>}</div>
+              <div className={isFavourite ? "detail_main_right_heart detail_main_right_heart_liked" : "detail_main_right_heart"} onClick={() => {
+                handleClick(productDetailResponse.data)
+                }}>{!isFavourite ? <FaRegHeart/> : <FaHeart/>}</div>
               <p className='prodeuct_detail_brand'>{productDetailResponse && productDetailResponse.data.brand.title}</p>
               <p className="product_detail_title">{productDetailResponse && productDetailResponse.data.title}</p>
               {

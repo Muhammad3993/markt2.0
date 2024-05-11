@@ -4,14 +4,21 @@ import { Link } from 'react-router-dom'
 // css
 import './newArrivals.css'
 // icons
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 // data
 import { randomProductApi } from '../../data/randomProductApi';
 import { InView } from 'react-intersection-observer';
+import { useContextProvider } from '../../context/Context';
 // React Observer
 
 
 const NewArrivals = () => {
+    const { addToFavourite, isFavourite,favourite } = useContextProvider();
+
+    const handleClick = (item) => {
+        addToFavourite(item);
+    };
+
     const [isLoading, setLoading] = useState(true)
     const [randomProductResponse, setRandomProductResponse] = useState(null);
 
@@ -20,9 +27,7 @@ const NewArrivals = () => {
         setRandomProductResponse(response)
         setLoading(false)
     }
-    useEffect(() => {
-  
-    }, []);
+    
   return (
     <div className='newArrivals'>
         <div className="container">
@@ -52,7 +57,7 @@ const NewArrivals = () => {
                                         <Link to={`/products/${item.slug}`} className='newArrivals_box_product_txt_title'>{item.title}</Link>
                                         <p className='newArrivals_box_product_txt_price'>от {item.price} сум</p>
                                     </div>
-                                    <p className='newArrivals_box_product_heart'><FaRegHeart/></p>
+                                    <p className='newArrivals_box_product_heart' onClick={() => handleClick(item)}>{!isFavourite ? <FaRegHeart/> : <FaHeart/>}</p>
                                     {
                                         item.tags.slice(0, 1).map(itemTag => (
                                             <p className='newArrivals_box_product_tag' key={itemTag.id}>{itemTag.title}</p>

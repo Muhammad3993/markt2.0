@@ -10,7 +10,7 @@ import { FaPlus, FaRegHeart } from 'react-icons/fa';
 import { AiOutlineClose } from 'react-icons/ai';
 
 const CategoryProducts = () => {
-    const {productsResponse, currentPage, pages, productsColumn, setProductsColumn, setIsOpenFilter, selectData, handleClear, handleAply, handlePagination} = useContextProvider();
+    const {productsResponse, currentPage, pages, productsColumn, setProductsColumn, setIsOpenFilter, selectData, handleClear, handlePagination} = useContextProvider();
   return (
     <>
         <div className="cat_component_main_bottom">

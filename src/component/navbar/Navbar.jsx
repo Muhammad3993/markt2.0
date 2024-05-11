@@ -21,8 +21,12 @@ import img2 from '../../assets/images/UZB.jpeg'
 import NavbarSearch from "./NavbarSearch";
 import { headerApi } from "../../data/headerApi";
 import Sign from "../sign/Sign";
+import { useContextProvider } from "../../context/Context";
 
 const Navbar = () => {
+
+  const {favourite} = useContextProvider();
+
   const [headerResponse, setHeaderResponse] = useState(null)
   const [sidebar, setSidebar] = useState(false)
   const [isOpenBar, setIsOpenBar] = useState();
@@ -226,7 +230,7 @@ const Navbar = () => {
             <div className="navbar_right-block">
               <button className="navbar_search" onClick={() => setIsOpenSearch(true)}><span><FiSearch/></span><p>search</p></button>
               <NavLink to={'/cart'} className="navbar_link"><CgShoppingBag/><span>100</span></NavLink>
-              <NavLink to={'/heart'} className="navbar_link navbar_link_heart"><FaRegHeart/><span>0</span></NavLink>
+              <NavLink to={'/favorite'} className="navbar_link navbar_link_heart"><FaRegHeart/><span>{Number(favourite.length)}</span></NavLink>
               {
                 !user ? 
                 <div className="side_bar_login" onClick={() => setIsOpenSign(true)}>login</div> : 

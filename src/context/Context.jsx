@@ -3,15 +3,12 @@ import { createContext, useContext, useEffect, useState } from "react";
 // Data
 import { categoryShowApi } from "../data/categoryShowApi.js";
 import { productsApi } from "../data/productsApi.js";
-import { categoriesApi } from "../data/categoriesApi.js";
-import { tagsApi } from "../data/tagsApi.js";
-import { brandsApi } from "../data/brandsApi.js";
 import { filterApi } from "../data/filtersApi.js";
 
 const Context = createContext({});
 
 export const ContextProvider = ({ children }) => {
-    const [shouldClearData, setShouldClearData] = useState(false)
+const [shouldClearData, setShouldClearData] = useState(false)
   // Api Response
   const [categoryShowResponse, setCategoryShowResponse] = useState(null);
   const [productsResponse, setProductsResponse] = useState(null);
@@ -108,6 +105,33 @@ export const ContextProvider = ({ children }) => {
         }
     }, [isOpenFilter]); 
 
+    // Favourite
+
+    const [favourite, setFavourite] = useState([]);
+    const [isFavourite, setIsFavourite] = useState(false);
+
+
+    const addToFavourite = (item) => {
+        const newFavourites = [...favourite];
+
+        const existingIndex = favourite.findIndex((favItem) => favItem.id === item.id);
+        if (existingIndex !== -1) {
+          newFavourites.splice(existingIndex, 1);
+        } else {
+          newFavourites.push(item);
+        };
+
+        setFavourite(newFavourites);
+        localStorage.setItem('favourite', JSON.stringify(newFavourites));
+    };
+
+    useEffect(() => {
+        const storedFavourites = JSON.parse(localStorage.getItem('favourite')) || [];
+        setFavourite(storedFavourites);
+    }, []);
+
+    
+
     const contextValues = {
         handleClear,
         setCategorySlug,
@@ -130,7 +154,11 @@ export const ContextProvider = ({ children }) => {
         setSelectedBrands,
         handleAply,
         handlePagination,
-        filtersResponse
+        filtersResponse,
+        favourite,
+        setFavourite,
+        addToFavourite,
+        isFavourite
     }
 
     return (
@@ -139,5 +167,9 @@ export const ContextProvider = ({ children }) => {
         </Context.Provider>
     );
 };
+
+
+    
+
 
 export const useContextProvider = () => useContext(Context);

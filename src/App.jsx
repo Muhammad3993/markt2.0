@@ -11,6 +11,7 @@ import Products from "./pages/Products"
 import Account from "./pages/Account.jsx"
 import Order from "./pages/Order.jsx"
 import About from "./pages/About.jsx"
+import Favourite from "./pages/Favourite.jsx"
 // Layouts
 import MainLayout from "./layout/MainLayout"
 import AccountLayout from "./layout/AccountLayout.jsx"
@@ -28,6 +29,7 @@ function App() {
         <Route path="categories/:slug" element={<CategoryShow/>}/>
         <Route path="cart" element={<Cart/>} />
         <Route path="search" element={<SearchResult/>} />
+        <Route path="favorite" element={<Favourite/>} />
         <Route element={<AccountLayout/>}>
           <Route path="/account" element={<Account/>}/>
           <Route path="/order" element={<Order/>}/>
