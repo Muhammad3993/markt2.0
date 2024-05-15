@@ -135,6 +135,10 @@
     visibility: visible;
 }
 
+.liked{
+    color: var(--red-bg);
+}
+
 @media screen and (max-width: 868px) {
     .newArrivals_box_products{
         display: flex;

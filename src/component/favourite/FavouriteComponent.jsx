@@ -6,11 +6,15 @@ import img1 from '../../assets/images/dots4.png';
 // routerdom
 import { Link } from "react-router-dom";
 // react icons
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
+// css
+import './favourite.css'
 
 const FavouriteComponent = () => {
-    const {productsColumn, setProductsColumn, favourite} = useContextProvider();
-
+    const {productsColumn, setProductsColumn, favourite, addToFavourite} = useContextProvider();
+    const handleClick = (item) => {
+        addToFavourite(item);
+    };
     const reverseFavourite = favourite.map((item, index, array) => array[array.length - index - 1])
 
   return (
@@ -47,7 +51,7 @@ const FavouriteComponent = () => {
                                     <Link to={`/products/${item.slug}`} className='cat_component_main_product_title'>{item.title}</Link>
                                     <p className='cat_component_main_product_price'>от {item.price} сум</p>
                                 </div>
-                                <p className='cat_component_main_product_heart'><FaRegHeart/></p>
+                                <p className='cat_component_main_product_heart hearted' onClick={() => handleClick(item)}><FaHeart/></p>
                                 {
                                     item.tags.slice(0, 1).map(itemTag => (
                                         <p className='cat_component_main_product_tag' key={itemTag.id}>{itemTag.title}</p>

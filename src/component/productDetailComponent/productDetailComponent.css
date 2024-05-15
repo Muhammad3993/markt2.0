@@ -267,7 +267,7 @@
     color: var(--blue);
 }
 
-.detail_main_right_heart_liked{
+.heart_liked{
     box-shadow: 0px 1px 4px 2px rgb(0, 3, 179);
     color: var(--blue);
 }

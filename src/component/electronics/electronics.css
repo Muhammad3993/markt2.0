@@ -26,6 +26,7 @@
 }
 
 .electronics_box_product{
+    width: 633px;
     min-width: 500px;
     height: auto;
     user-select: none;

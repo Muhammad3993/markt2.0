@@ -62,6 +62,7 @@
     justify-content: center;
     gap: 10px;
     border-radius: 6px;
+    cursor: pointer;
 }
 
 .sign_box_google p {
@@ -92,6 +93,7 @@
     border-radius: 6px;
     color: var(--blue-bg);
     gap: 10px;
+    cursor: pointer;
 }
 
 .sign_box_telegram p {
@@ -114,6 +116,7 @@
     border-radius: 6px;
     gap: 10px;
     color: var(--black-bg);
+    cursor: pointer;
 }
 
 .sign_box_git_icons{

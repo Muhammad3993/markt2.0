@@ -17,7 +17,7 @@ import { useContextProvider } from '../../context/Context';
 
 const ProductDetail = () => {
 
-  const { addToFavourite, isFavourite } = useContextProvider();
+  const { addToFavourite, favourite } = useContextProvider();
 
   const handleClick = (item) => {
     addToFavourite(item);
@@ -135,9 +135,9 @@ const ProductDetail = () => {
               }
             </div>
             <div className="detail_main_right">
-              <div className={isFavourite ? "detail_main_right_heart detail_main_right_heart_liked" : "detail_main_right_heart"} onClick={() => {
+              <div className={favourite.some((favItem) => favItem.id !== productDetailResponse || productDetailResponse.data.id) ? "detail_main_right_heart heart_liked" : "detail_main_right_heart"} onClick={() => 
                 handleClick(productDetailResponse.data)
-                }}>{!isFavourite ? <FaRegHeart/> : <FaHeart/>}</div>
+                }>{favourite.some((favItem) => favItem.id === productDetailResponse && productDetailResponse.data.id) ? <FaRegHeart/> : <FaHeart/>}</div>
               <p className='prodeuct_detail_brand'>{productDetailResponse && productDetailResponse.data.brand.title}</p>
               <p className="product_detail_title">{productDetailResponse && productDetailResponse.data.title}</p>
               {

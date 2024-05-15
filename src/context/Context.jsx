@@ -108,7 +108,6 @@ const [shouldClearData, setShouldClearData] = useState(false)
     // Favourite
 
     const [favourite, setFavourite] = useState([]);
-    const [isFavourite, setIsFavourite] = useState(false);
 
 
     const addToFavourite = (item) => {
@@ -158,7 +157,6 @@ const [shouldClearData, setShouldClearData] = useState(false)
         favourite,
         setFavourite,
         addToFavourite,
-        isFavourite
     }
 
     return (

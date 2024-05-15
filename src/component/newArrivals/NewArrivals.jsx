@@ -13,7 +13,7 @@ import { useContextProvider } from '../../context/Context';
 
 
 const NewArrivals = () => {
-    const { addToFavourite, isFavourite,favourite } = useContextProvider();
+    const { addToFavourite, favourite } = useContextProvider();
 
     const handleClick = (item) => {
         addToFavourite(item);
@@ -57,7 +57,7 @@ const NewArrivals = () => {
                                         <Link to={`/products/${item.slug}`} className='newArrivals_box_product_txt_title'>{item.title}</Link>
                                         <p className='newArrivals_box_product_txt_price'>от {item.price} сум</p>
                                     </div>
-                                    <p className='newArrivals_box_product_heart' onClick={() => handleClick(item)}>{!isFavourite ? <FaRegHeart/> : <FaHeart/>}</p>
+                                    <p className={favourite.some((favItem) => favItem.id === item.id) ? 'newArrivals_box_product_heart liked' : 'newArrivals_box_product_heart'} onClick={() => handleClick(item)}>{favourite.some((favItem) => favItem.id === item.id) ? <FaHeart/> : <FaRegHeart/>}</p>
                                     {
                                         item.tags.slice(0, 1).map(itemTag => (
                                             <p className='newArrivals_box_product_tag' key={itemTag.id}>{itemTag.title}</p>
