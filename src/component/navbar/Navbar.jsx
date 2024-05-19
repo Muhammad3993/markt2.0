@@ -1,10 +1,10 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 // import react-router-dom
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 // import icons
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { CgShoppingBag } from "react-icons/cg";
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { RiUser3Line, RiTelegramFill, RiInstagramFill } from "react-icons/ri";
 import { IoIosArrowForward } from "react-icons/io"
@@ -22,21 +22,29 @@ import NavbarSearch from "./NavbarSearch";
 import { headerApi } from "../../data/headerApi";
 import Sign from "../sign/Sign";
 import { useContextProvider } from "../../context/Context";
+import { headerItem } from "../../data/headerItemApi";
+import { HiArrowLongLeft } from "react-icons/hi2";
 
 const Navbar = () => {
 
-  const {favourite} = useContextProvider();
+  const {favourite, addToFavourite} = useContextProvider();
+
+  const handleClick = (item) => {
+    addToFavourite(item);
+};
 
   const [headerResponse, setHeaderResponse] = useState(null)
+  const [headerItemResponse, setHeaderItemResponse] = useState(null)
   const [sidebar, setSidebar] = useState(false)
   const [isOpenBar, setIsOpenBar] = useState();
+  const [navMenu, setNavMenu] = useState(false)
   const [isOpenSign, setIsOpenSign] = useState(false);
+  const [isOpenSidebar, setIsOpenSidebar] = useState(false)
+  const [headerSlug, setHeaderSlug] = useState("");
   const handleIsOpenBar = () => {
     setIsOpenBar(!isOpenBar)
   };
   const [isOpenSearch, setIsOpenSearch] = useState(false);
-  const [selectCatalog, setSelectCatalog] = useState(1)
-  const [selectCatalog1, setSelectCatalog1] = useState(1)
 
   const [selectedLanguage, setSelectedLanguage] = useState('русский');
   const [isOpen, setIsOpen] = useState(false);
@@ -78,6 +86,16 @@ const Navbar = () => {
     getHeader();
   }, [])
 
+  useEffect(() => {
+    const getHeaderItem = async () => {
+      const response = await headerItem.getHeaderItem(headerSlug);
+      setHeaderItemResponse(response)
+    }
+    if(headerSlug){
+      getHeaderItem();
+    }
+  }, [headerSlug]);
+
   const [positionTop, setPositionTop] = useState(false) 
   const changePosition = () => {
       if(window.scrollY >= 30){
@@ -92,7 +110,9 @@ const Navbar = () => {
   return (
     <>
       <NavbarSearch isOpenSearch={isOpenSearch} setIsOpenSearch={setIsOpenSearch} positionTop={positionTop}/>
+      {/* <pre>{JSON.stringify(headerItemResponse, null, 2)}</pre> */}
       <nav className={positionTop ? "positionTopNav" : ""}>
+
         <div className="container">
           <div className="navbar">
             <div className="navbar_left-block">
@@ -100,42 +120,82 @@ const Navbar = () => {
                 !isOpenBar ?
                 <button className="nav_bar" onClick={() => {
                   setIsOpenBar(true)
-                  setSelectCatalog(1)
+                  setNavMenu(true)
                 }}><AiOutlineMenu/></button> :
                 <button className="nav_bar" onClick={() => setIsOpenBar(false)}><AiOutlineClose/></button>
               }
               <>
                     {
-                      headerResponse && headerResponse.slice(0, 4).map((item, i) => (
-                        <NavLink to={`${item.type}/${item.slug}`} className={selectCatalog ? "nav_link nav_link_active" : "nav_link"} key={i} onClick={
+                      headerResponse && headerResponse.map((item, i) => (
+                        item.type === "categories" ?
+                        <div className={"nav_link"} key={i} onClick={
                           () => {
-                            setSelectCatalog(item.id)
-                            setSelectCatalog1(1);
+                            setHeaderSlug(item.slug)
                             setIsOpenBar(true)
+                            setNavMenu(false)
                           }
-                        }>{item.title}</NavLink>
+                        }>{item.title}</div> : 
+                        <Link to={`${item.type}/${item.slug}`} className={"nav_link"} key={i}>{item.title}</Link>
                       ))
                     }
-                    <div className={!isOpenBar ? 'nav_menu nav_menu_none' : 'nav_menu'}>
+                    <div className={!isOpenBar ? `nav_menu nav_menu_none ${positionTop ? 'nav__menu' : ''}` : 'nav_menu'}>
                       <div className='navbar_menu'>
                         <div className="container">
                           <div className="navbar_menu_box">
-                            {/* <div className="navbar_menu_box_sidebar">
-                              {
-                                headerResponse !== null ? headerResponse[selectCatalog - 1]?.children.map(item => (
-                                  <div key={item.id} className={selectCatalog ? "navbar_menu_box_sidebar_title catalog_active" : "navbar_menu_box_sidebar_title"} onClick={() => {
-                                    setSelectCatalog1(item.id)
-                                  }}>{item.name}</div>
-                                )) : ''
-                              }
-                            </div> */}
-                            {/* <div className='navbar_menu_box_body'>
-                              {
-                                selectCatalog1 !== null ? data[selectCatalog - 1]?.title[selectCatalog1 - 1]?.pages.map(item => (
-                                  <NavLink  to={'/'} key={item.id} className="navbar_menu_box_body_link">{item.name}</NavLink>
-                                )) : '' 
-                              }
-                            </div> */}
+                            {
+                              !navMenu ? 
+                              (
+                                headerItemResponse && Number(headerItemResponse.length) !== 0 ?
+                                <div className="navbar_menu_box_sidebar">
+                                  {
+                                      <Link to={`categories/${headerSlug}`} className={"navbar_menu_box_sidebar_bigtitle"}>All {headerItemResponse && headerItemResponse.title}</Link>
+                                  }
+                                  {
+                                    headerItemResponse && headerItemResponse.children.map(item => (
+                                      <Link to={`${item.type}/${item.slug}`} key={item.id} className={"navbar_menu_box_sidebar_title catalog_active" && "navbar_menu_box_sidebar_title"}>{item.title}</Link>
+                                    ))
+                                  }
+                                </div> : ''
+                               ) : 
+                               <div className="navbar_menu_box_sidebar">
+                                 <p className="navbar_menu_box_sidebar_bigtitle catalog_active">Menu</p>
+                               </div>
+                            }
+                            {
+                              !navMenu ? 
+                              (
+                                headerItemResponse && headerItemResponse.products.length !== 0 ?
+                                <div className='navbar_menu_box_body'>
+                                  <div className="navbar_menu_box_body_products">
+                                    {
+                                      headerItemResponse && headerItemResponse.products.map(item => (
+                                        <div className="navbar_menu_box_body_product" key={item.id}>
+                                          <Link to={`/products/${item.slug}`} className="navbar_menu_box_body_product_img">
+                                              <img src={item.thumbnail} alt="" />
+                                          </Link>
+                                          <p className='navbar_menu_box_body_product_brand'>{item.brand.title}</p>
+                                          <Link to={`/products/${item.slug}`} className='navbar_menu_box_body_product_title'>{item.title}</Link>
+                                          <p className='navbar_menu_box_body_product_price'>от {item.price} сум</p>
+                                          {
+                                            item.tags.slice(0, 1).map(itemTag => (
+                                                <p className='welcomeModal_box_product_tag' key={itemTag.id}>{itemTag.title}</p>
+                                            ))
+                                          }
+                                          <p className={favourite.some((favItem) => favItem.id === item.id) ? 'welcomeModal_box_product_heart welcomeModal_box_product_heart_liked' : 'welcomeModal_box_product_heart'} onClick={() => handleClick(item)}>{favourite.some((favItem) => favItem.id === item.id) ? <FaHeart/> : <FaRegHeart/>}</p>
+                                        </div>
+                                      ))
+                                    }         
+                                  </div>
+                                </div> : ''
+                               ) : 
+                               <div className="navbar_menu_box_body">
+                                <NavLink  to={'/about'} className="navbar_menu_box_body_link">About us</NavLink>
+                                <NavLink  to={'/account'} className="navbar_menu_box_body_link">Account</NavLink>
+                                <NavLink  to={'/order'} className="navbar_menu_box_body_link">Orders</NavLink>
+                                <NavLink  to={'/'} className="navbar_menu_box_body_link">Privacy Policy</NavLink>
+                                <NavLink  to={'/'} className="navbar_menu_box_body_link">Terms & Conditions</NavLink>
+                               </div>
+                            }
                           </div>
                         </div>
                       </div>
@@ -195,28 +255,40 @@ const Navbar = () => {
                   <div className="side_bar_box_catalog container">
                     {
                       headerResponse && headerResponse.map((item, i) => (
-                        <NavLink key={i} className="side_bar_box_link"><span>{item.title}</span><p><IoIosArrowForward/></p></NavLink>
+                        item.type === "categories" ?
+                        <div key={i} className="side_bar_box_link" 
+                          onClick={() => {
+                            setHeaderSlug(item.slug)
+                            setIsOpenSidebar(true)
+                          }}
+                        ><span>{item.title}</span><p><IoIosArrowForward/></p></div> : 
+                        <NavLink to={`${item.type}/${item.slug}`} key={i} className="side_bar_box_link"><span>{item.title}</span></NavLink>
                       ))
                     }
                   </div>
+                  <div className={`side_bar_box_header ${isOpenSidebar ? "side_bar_box_header_open" : ""} container`}>
+                    <div className="side_bar_box_header_nav">
+                      <div className="side_bar_box_header_nav_left">
+                        <button className="side_bar_box_header_nav_left_arrow" onClick={() => setIsOpenSidebar(false)}><HiArrowLongLeft/></button>
+                        <p className="side_bar_box_header_nav_left_title">{headerItemResponse && headerItemResponse.title}</p>
+                      </div>
+                      <Link to={`categories/${headerSlug}`} className="side_bar_box_header_nav_link">Shop All</Link>
+                    </div>
+                    <div className="side_bar_box_header_body">
+                      {
+                        headerItemResponse && headerItemResponse.children.map(item => (
+                          <Link to={`${item.type}/${item.slug}`} className="side_bar_box_header_body_link" key={item.id}>{item.title}</Link>
+                        ))
+                      }
+                      {/* <Link className="side_bar_box_header_body_link">Computers</Link> */}
+                    </div>
+                  </div>
                   <div className="side_bar_box_pages container">
-                    {
-                      data && data.slice(0, 1).map(item => (
-                        <Fragment key={item.id}>
-                          {
-                            item.title && item.title.slice(0, 1).map(titleItem => (
-                              <Fragment key={titleItem.id}>
-                                {
-                                  titleItem.pages && titleItem.pages.map(pageItem => (
-                                    <NavLink key={pageItem.id} to={pageItem.path} className="side_bar_box_link"><span>{pageItem.name}</span></NavLink>
-                                  ))
-                                }
-                              </Fragment>
-                            ))
-                          }
-                        </Fragment>
-                      ))
-                    }
+                    <NavLink to={'/about'} className="side_bar_box_link"><span>About</span></NavLink>
+                    <NavLink to={'/account'} className="side_bar_box_link"><span>Account</span></NavLink>
+                    <NavLink to={'/order'} className="side_bar_box_link"><span>Orders</span></NavLink>
+                    <NavLink to={'/about'} className="side_bar_box_link"><span>Privacy Policy</span></NavLink>
+                    <NavLink to={'/about'} className="side_bar_box_link"><span>Terms & Conditions</span></NavLink>
                     <div className="side_bar_box_logout"><p>Log out</p><span><LuLogOut /></span></div>
                   </div>
                   <div className="side_bar_box_icons container">
@@ -258,26 +330,7 @@ const data = [
         id: 1,
         name: 'Menu',
         pages: [
-          {
-            id: 1,
-            name: 'About',
-          },
-          {
-            id: 2,
-            name: 'Account',
-          },
-          {
-            id: 3,
-            name: 'Orders',
-          },
-          {
-            id: 4,
-            name: 'Privacy Policy',
-          },
-          {
-            id: 5,
-            name: 'Terms & Conditions',
-          },
+  
         ]
       }
     ]

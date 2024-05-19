@@ -94,13 +94,14 @@
 }
 
 .promo_box_sale_data:hover .promo_box_sale_data_img{
-    transform: scale(1.1);
+    transform: scale(1.06);
 }
 
 .promo_box_sale_data_img img{
     width: 100%;
     height: 100%;
     object-fit: contain;
+    mix-blend-mode: darken;
 }
 
 .promo_box_sale_btn{

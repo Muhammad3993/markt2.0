@@ -11,14 +11,21 @@ import './welcomeModal.css'
 
 // icons
 import { AiOutlineClose } from "react-icons/ai";
-import { FaRegHeart } from 'react-icons/fa'
+import { FaHeart, FaRegHeart } from 'react-icons/fa'
 import { randomProductApi } from '../../data/randomProductApi';
+import { useContextProvider } from '../../context/Context';
 // Context
 
 const WelcomeModal = () => {
 
     const [openModal, setOpenModal] = useState(true)
     const [randomProductResponse, setRandomProductResponse] = useState(null);
+
+    const {favourite, addToFavourite} = useContextProvider();
+
+    const handleClick = (item) => {
+        addToFavourite(item);
+    };
 
     useEffect(() => {
         const getRandomProductApi = async () => {
@@ -57,9 +64,9 @@ const WelcomeModal = () => {
                         randomProductResponse && randomProductResponse.data.map(item => (
                             <SwiperSlide key={item.id}>
                                 <div className="welcomeModal_box_product">
-                                    <div className="welcomeModal_box_product_img">
+                                    <Link to={`/products/${item.slug}`} className="welcomeModal_box_product_img">
                                         <img src={item.thumbnail} alt="" />
-                                    </div>
+                                    </Link>
                                     <p className='welcomeModal_box_product_brand'>{item.brand.title}</p>
                                     <Link to={`/products/${item.slug}`} className='welcomeModal_box_product_title'>{item.title}</Link>
                                     <p className='welcomeModal_box_product_price'>от {item.price} сум</p>
@@ -68,7 +75,7 @@ const WelcomeModal = () => {
                                             <p className='welcomeModal_box_product_tag' key={itemTag.id}>{itemTag.title}</p>
                                         ))
                                     }
-                                    <p className='welcomeModal_box_product_heart'><FaRegHeart/></p>
+                                    <p className={favourite.some((favItem) => favItem.id === item.id) ? 'welcomeModal_box_product_heart welcomeModal_box_product_heart_liked' : 'welcomeModal_box_product_heart'} onClick={() => handleClick(item)}>{favourite.some((favItem) => favItem.id === item.id) ? <FaHeart/> : <FaRegHeart/>}</p>
                                 </div>
                             </SwiperSlide>           
                         ))

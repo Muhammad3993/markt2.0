@@ -8,6 +8,7 @@ import { topCategoriesApi } from '../../data/topCategoriesApi'
 
 const Electronics = () => {
   const [isLoading, setLoading] = useState(true)
+
   
   // For scroll
   const ref = useRef(null)
@@ -79,9 +80,9 @@ const Electronics = () => {
                       isLoading ? "Loading.." :
                       topCategoriesResponse && topCategoriesResponse.data.slice(0, 3).map(item => (
                         <div className="electronics_box_product" key={item.id}>
-                          <div className="electronics_box_product_img">
+                          <Link to={`/categories/${item.slug}`} className="electronics_box_product_img">
                             <img src={item.image} alt="" />
-                          </div>
+                          </Link>
                           <Link to={`/categories/${item.slug}`} className='electronics_box_product_title'>{item.title}</Link>
                         </div>
                       ))

@@ -43,13 +43,14 @@ nav{
     height: 100%;
     text-transform: capitalize;
     color: var(--black-bg);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     display: flex;
     align-items: center;
     transition: .3s;
     border-bottom: 1px solid transparent;
     z-index: 10;
+    cursor: pointer;
     white-space: nowrap;
 }
 
@@ -58,8 +59,6 @@ nav{
     color: var(--blue);
 }
 
-
-/* .nav_link_active, */
 .nav_link.active{
     border-bottom: 1px solid var(--blue);
     color: var(--blue);
@@ -151,11 +150,17 @@ nav{
     height: calc(100vh - 110px);
     position: absolute;
     left: 0;
-    top: 110px;
+    top: 80px;
     opacity: 1;
     visibility: visible;
     transition: .3s;
 }
+
+.positionTopNav .nav_menu {
+    height: calc(100vh - 80px);
+    top: 80px;
+}
+
 .nav_menu_none{
     opacity: 0;
     visibility: hidden;
@@ -205,14 +210,21 @@ nav{
     border-left: 1px solid var(--gray-bg);
 }
 
-.navbar_menu_box_sidebar_title{
+.navbar_menu_box_sidebar_title,
+.navbar_menu_box_sidebar_bigtitle{
     color: var(--black-bg);
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     cursor: pointer;
+    text-transform: capitalize;
+}
+
+.navbar_menu_box_sidebar_bigtitle{
+    font-size: 18px;
 }
 
 .navbar_menu_box_sidebar_title:hover,
+.navbar_menu_box_sidebar_bigtitle:hover,
 .catalog_active{
     color: var(--blue);
     text-decoration: underline;
@@ -429,6 +441,7 @@ nav{
     width: 100%;
     height: 100%;
     background: var(--white);
+    position: relative;
 }
 
 .side_bar_overlay{
@@ -459,6 +472,8 @@ nav{
     color: var(--black-bg);
     font-size: 19px;
     cursor: pointer;
+    z-index: 10;
+    margin-top: 3px;
 }
 
 .side_bar_login{
@@ -483,6 +498,7 @@ nav{
     justify-content: space-between;
     align-items: center;
     height: 40px;
+    cursor: pointer;
 }
 
 .side_bar_box_link span{
@@ -546,6 +562,140 @@ nav{
     cursor: pointer;
     user-select: none;
 }
+
+.navbar_menu_box_body_products{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.navbar_menu_box_body_product{
+    width: 214px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    user-select: none;
+}
+
+.navbar_menu_box_body_product_img{
+    width: 100%;
+    height: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: .3s;
+}
+
+.navbar_menu_box_body_product_brand{
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--blue);
+    text-transform: capitalize;
+    margin-top: 5px;
+}
+
+.navbar_menu_box_body_product_title{
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--black-bg);
+    margin-top: 8px;
+    text-decoration: underline;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.navbar_menu_box_body_product_price{
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--black-bg);
+    margin-top: 8px;
+    text-align: center;
+}
+
+.navbar_menu_box_body_product_img:hover.navbar_menu_box_body_product_img img{
+    transform: scale(1.1);
+}
+
+.navbar_menu_box_body_product_img img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: darken;
+    transition: .3s;
+}
+
+.side_bar_box_header{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    right: -100%;
+    transition: .3s;
+    background: var(--white);
+}
+
+.side_bar_box_header_open{
+    right: 0;
+}
+
+.side_bar_box_header_nav{
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.side_bar_box_header_nav_left{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.side_bar_box_header_nav_left_arrow{
+    font-size: 33px;
+    margin-top: 5px;
+    cursor: pointer;
+    color: var(--black-bg);
+}
+
+.side_bar_box_header_nav_left_title{
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--black-bg);
+    text-transform: capitalize;
+}
+
+.side_bar_box_header_nav_link{
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--blue);
+    text-decoration: underline;
+}
+
+.side_bar_box_header_body{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-top: 10px;
+}
+
+.side_bar_box_header_body_link{
+    width: 100%;
+    height: 44px;
+    display: flex;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--black-bg);
+    text-transform: capitalize;
+}
+
 /* media */
 @media screen and (max-width: 868px) {
     nav{

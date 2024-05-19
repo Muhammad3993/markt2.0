@@ -57,6 +57,7 @@
 .cat_component_main_bottom_right_img img{
     width: 40px;
     cursor: pointer;
+    mix-blend-mode: darken;
 }
 
 
@@ -114,6 +115,7 @@
     height: 70%;
     object-fit: contain;
     transition: .3s;
+    mix-blend-mode: darken;
 }
 
 .cat_component_main_product_brand{
@@ -558,6 +560,10 @@
     color: var(--blue);
     cursor: pointer;
     user-select: none;
+}
+
+.cat_component_main_product_heart_liked{
+    color: var(--red-bg);
 }
 
 @media screen and (max-width: 768px) {

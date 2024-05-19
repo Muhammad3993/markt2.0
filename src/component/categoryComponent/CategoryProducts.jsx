@@ -6,11 +6,15 @@ import img1 from '../../assets/images/dots4.png';
 // react-router
 import { Link } from "react-router-dom";
 // icons
-import { FaPlus, FaRegHeart } from 'react-icons/fa';
+import { FaHeart, FaPlus, FaRegHeart } from 'react-icons/fa';
 import { AiOutlineClose } from 'react-icons/ai';
 
 const CategoryProducts = () => {
-    const {productsResponse, currentPage, pages, productsColumn, setProductsColumn, setIsOpenFilter, selectData, handleClear, handlePagination} = useContextProvider();
+    const {productsResponse, currentPage, pages, productsColumn, setProductsColumn, setIsOpenFilter, selectData, handleClear, handlePagination, favourite, addToFavourite} = useContextProvider();
+
+    const handleClick = (item) => {
+        addToFavourite(item);
+    };
   return (
     <>
         <div className="cat_component_main_bottom">
@@ -36,14 +40,14 @@ const CategoryProducts = () => {
                         productsResponse && productsResponse.length !== 0 ? productsResponse.data.map(item => (
                             <div className={productsColumn ? "cat_component_main_product" : "column_three"} key={item.id}>
                                 <div className="cat_component_main_product_data">
-                                    <div className="cat_component_main_product_img">
+                                    <Link to={`/products/${item.slug}`} className="cat_component_main_product_img">
                                         <img src={item.thumbnail} alt="" />
-                                    </div>
+                                    </Link>
                                     <p className="cat_component_main_product_brand">{item.brand.title}</p>
                                     <Link to={`/products/${item.slug}`} className='cat_component_main_product_title'>{item.title}</Link>
                                     <p className='cat_component_main_product_price'>от {item.price} сум</p>
                                 </div>
-                                <p className='cat_component_main_product_heart'><FaRegHeart/></p>
+                                <p className={favourite.some((favItem) => favItem.id === item.id) ? 'cat_component_main_product_heart cat_component_main_product_heart_liked' : 'cat_component_main_product_heart'} onClick={() => handleClick(item)}>{favourite.some((favItem) => favItem.id === item.id) ? <FaHeart/> : <FaRegHeart/>}</p>
                                 {
                                     item.tags.slice(0, 1).map(itemTag => (
                                         <p className='cat_component_main_product_tag' key={itemTag.id}>{itemTag.title}</p>

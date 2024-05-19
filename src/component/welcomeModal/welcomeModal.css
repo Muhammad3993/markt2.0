@@ -181,6 +181,10 @@
     font-size: 24px;
 }
 
+.welcomeModal_box_product_heart_liked{
+    color: var(--red-bg);
+}
+
 @media screen and (max-width: 530px) {
     .welcomeModal_box{
         height: 700px;

@@ -50,9 +50,9 @@ const NewArrivals = () => {
                             randomProductResponse && randomProductResponse.data.slice(0, 4).map(item => (
                                 <div className="newArrivals_box_product" key={item.id}>
                                     <div className="newArrivals_box_product_data">
-                                        <div className="newArrivals_box_product_img">
+                                        <Link to={`/products/${item.slug}`} className="newArrivals_box_product_img">
                                             <img src={item.thumbnail} alt="" />
-                                        </div>
+                                        </Link>
                                         <p className="newArrivals_box_product_brand">{item.brand.title}</p>
                                         <Link to={`/products/${item.slug}`} className='newArrivals_box_product_txt_title'>{item.title}</Link>
                                         <p className='newArrivals_box_product_txt_price'>от {item.price} сум</p>
