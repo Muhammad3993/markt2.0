@@ -3,21 +3,22 @@ import { useEffect, useState } from 'react';
 import { promoApi } from '../../data/promoApi.js';
 // css
 import './promo.css'
-// videos
-import vid from '../../assets/videos/vid.mp4'
-
+// context
+import { useContextProvider } from '../../context/Context.jsx';
 
 const Promo = () => {
+  const { language } = useContextProvider();
+
   const [promoResponse, setPromoResponse] = useState(null)
 
   useEffect(() => {
     const getPromo = async () => {
-        const response = await promoApi.getPromo()
+        const response = await promoApi.getPromo(language)
         setPromoResponse(response)
     }
 
     getPromo();
-},[])
+},[language])
   return (
     <div className='promo'>
       <div className="container">

@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 // Data
 import { categoryShowApi } from "../data/categoryShowApi.js";
@@ -8,7 +8,23 @@ import { filterApi } from "../data/filtersApi.js";
 const Context = createContext({});
 
 export const ContextProvider = ({ children }) => {
-const [shouldClearData, setShouldClearData] = useState(false)
+  // language
+  const [language, setLanguage] = useState('');
+
+  useEffect(() => {
+    if (language) {
+        localStorage.setItem('language', language);
+    }
+    }, [language]);
+
+    useEffect(() => {
+        const storedLanguage = localStorage.getItem('language');
+        if (storedLanguage) {
+            setLanguage(storedLanguage);
+        }
+    }, []);
+
+  const [shouldClearData, setShouldClearData] = useState(false)
   // Api Response
   const [categoryShowResponse, setCategoryShowResponse] = useState(null);
   const [productsResponse, setProductsResponse] = useState(null);
@@ -54,7 +70,7 @@ const [shouldClearData, setShouldClearData] = useState(false)
     const handleClear = async (page = 1) => {
         setSelectData(null);
         setCurrentPage(page);
-        const productResponse = await productsApi.getProductsApi(page, '', '', '')
+        const productResponse = await productsApi.getProductsApi(page, '', '', '', language)
         setProductsResponse(productResponse);
         setShouldClearData(true)
     }
@@ -63,7 +79,7 @@ const [shouldClearData, setShouldClearData] = useState(false)
         setIsOpenFilter(false);
         setCurrentPage(1);
         setSelectData(SelectData);
-        const productResponse = await productsApi.getProductsApi(1, categoryIds, tagIds, brandIds);
+        const productResponse = await productsApi.getProductsApi(1, categoryIds, tagIds, brandIds, language);
         setProductsResponse(productResponse);
         setShouldClearData(false);
     }
@@ -72,9 +88,9 @@ const [shouldClearData, setShouldClearData] = useState(false)
         setCurrentPage(page);
         let productPageResponse;
         if (shouldClearData) {
-            productPageResponse = await productsApi.getProductsApi(page, '', '', '');
+            productPageResponse = await productsApi.getProductsApi(page, '', '', '', language);
         } else {
-            productPageResponse = await productsApi.getProductsApi(page, categoryIds, tagIds, brandIds);
+            productPageResponse = await productsApi.getProductsApi(page, categoryIds, tagIds, brandIds, language);
         }
         setProductsResponse(productPageResponse);
     }
@@ -82,28 +98,28 @@ const [shouldClearData, setShouldClearData] = useState(false)
     useEffect(() => {
         const getCategoryShowApi = async () => {
             if (slug) {
-                const response = await categoryShowApi.getCategoryShowApi(slug)
+                const response = await categoryShowApi.getCategoryShowApi(slug, language)
                 setCategoryShowResponse(response)
                 if (response) {
                     setSelectedCategories([response.item]);
-                    const productResponse = await productsApi.getProductsApi(1, response.item.id, '', '')
+                    const productResponse = await productsApi.getProductsApi(1, response.item.id, '', '', language)
                     setProductsResponse(productResponse)
                 }
             }
         }
         
         getCategoryShowApi()
-    }, [slug]);
+    }, [slug, language]);
 
     useEffect(() => {
         const getFilterApi = async () => {
-            const response = await filterApi.getFilter();
+            const response = await filterApi.getFilter(language);
             setFiltersResponse(response);
         }
         if (isOpenFilter) {
             getFilterApi();
         }
-    }, [isOpenFilter]); 
+    }, [isOpenFilter, language]); 
 
     // Favourite
 
@@ -131,6 +147,13 @@ const [shouldClearData, setShouldClearData] = useState(false)
 
     
 
+    // search results
+    const [searchItem, setSearchItem] = useState('');
+    const inputRef = useRef(null)
+    const handleChangeSearchInput = (e) => {
+        setSearchItem(e.target.value)
+    }
+
     const contextValues = {
         handleClear,
         setCategorySlug,
@@ -157,6 +180,12 @@ const [shouldClearData, setShouldClearData] = useState(false)
         favourite,
         setFavourite,
         addToFavourite,
+        setLanguage,
+        language,
+        inputRef,
+        searchItem,
+        setSearchItem,
+        handleChangeSearchInput
     }
 
     return (

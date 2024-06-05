@@ -13,7 +13,7 @@ import { useContextProvider } from '../../context/Context';
 
 
 const NewArrivals = () => {
-    const { addToFavourite, favourite } = useContextProvider();
+    const { addToFavourite, favourite, language } = useContextProvider();
 
     const handleClick = (item) => {
         addToFavourite(item);
@@ -23,10 +23,16 @@ const NewArrivals = () => {
     const [randomProductResponse, setRandomProductResponse] = useState(null);
 
     const getRandomProductApi = async () => {
-        const response = await randomProductApi.getRandomProductApi()
+        const response = await randomProductApi.getRandomProductApi(language)
         setRandomProductResponse(response)
         setLoading(false)
     }
+    useEffect(() => {
+        if (randomProductResponse && randomProductResponse.length !== 0) {
+            getRandomProductApi();
+        }
+    }, [language])
+
     
   return (
     <div className='newArrivals'>

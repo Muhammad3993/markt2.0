@@ -9,22 +9,24 @@ import img1 from '../../assets/images/logoType1.webp';
 // icons
 import { RiTelegramFill, RiInstagramFill } from 'react-icons/ri'
 import { footerApi } from '../../data/footerApi';
+import { useContextProvider } from '../../context/Context';
 
 // Context
 
 
 const Footer = () => {
+  const { language } = useContextProvider();
     const [footerResponse, setFooterResponse] = useState(null);
 
 
     useEffect(() => {
         const getFooter = async () => {
-            const response = await footerApi.getFooter()
+            const response = await footerApi.getFooter(language)
             setFooterResponse(response)
         }
   
         getFooter();
-    }, [])
+    }, [language])
   return (
     <footer>
         <div className="container">
@@ -37,14 +39,14 @@ const Footer = () => {
                         <div className="footer_main_col_links">
                             {
                                 footerResponse && footerResponse.line_1.map(item => (
-                                    <NavLink to={item.slug} className="footer_main_col_link" key={item.id}>{item.title}</NavLink>
+                                    <NavLink to={`${item.type}/${item.slug}`} className="footer_main_col_link" key={item.id}>{item.title}</NavLink>
                                 ))
                             }
                         </div>                    
                         <div className="footer_main_col_links">
                             {
                                 footerResponse && footerResponse.line_2.map(item => (
-                                    <NavLink to={item.slug} className="footer_main_col_link" key={item.id}>{item.title}</NavLink>
+                                    <NavLink to={`${item.type}/${item.slug}`} className="footer_main_col_link" key={item.id}>{item.title}</NavLink>
                                 ))
                             }
                         </div>

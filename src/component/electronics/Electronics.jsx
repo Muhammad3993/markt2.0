@@ -5,8 +5,12 @@ import { Link } from 'react-router-dom'
 import './electronics.css'
 // data
 import { topCategoriesApi } from '../../data/topCategoriesApi'
+// context
+import { useContextProvider } from '../../context/Context'
 
 const Electronics = () => {
+  const { language } = useContextProvider();
+
   const [isLoading, setLoading] = useState(true)
 
   
@@ -60,12 +64,12 @@ const Electronics = () => {
 
   useEffect(() => {
     const getTopCategories = async () => {
-      const response = await topCategoriesApi.getTopCategories();
+      const response = await topCategoriesApi.getTopCategories(language);
       setTopCategoriesResponse(response);
       setLoading(false)
     }
     getTopCategories()
-  },[])
+  },[language])
 
   return (
     <div className='electronics'>
@@ -78,7 +82,7 @@ const Electronics = () => {
                   >
                     {
                       isLoading ? "Loading.." :
-                      topCategoriesResponse && topCategoriesResponse.data.slice(0, 3).map(item => (
+                      topCategoriesResponse && topCategoriesResponse.data.map(item => (
                         <div className="electronics_box_product" key={item.id}>
                           <Link to={`/categories/${item.slug}`} className="electronics_box_product_img">
                             <img src={item.image} alt="" />

@@ -27,7 +27,7 @@ import { HiArrowLongLeft } from "react-icons/hi2";
 
 const Navbar = () => {
 
-  const {favourite, addToFavourite} = useContextProvider();
+  const {favourite, addToFavourite, language} = useContextProvider();
 
   const handleClick = (item) => {
     addToFavourite(item);
@@ -79,22 +79,22 @@ const Navbar = () => {
   const [user, setUser] = useState(false)
   useEffect(() => {
     const getHeader = async () => {
-      const response = await headerApi.getHeader()
-      setHeaderResponse(response)
+      const response = await headerApi.getHeader(language);
+      setHeaderResponse(response);
     }
     
     getHeader();
-  }, [])
+  }, [language])
 
   useEffect(() => {
     const getHeaderItem = async () => {
-      const response = await headerItem.getHeaderItem(headerSlug);
+      const response = await headerItem.getHeaderItem(headerSlug, language);
       setHeaderItemResponse(response)
     }
     if(headerSlug){
       getHeaderItem();
     }
-  }, [headerSlug]);
+  }, [headerSlug, language]);
 
   const [positionTop, setPositionTop] = useState(false) 
   const changePosition = () => {
@@ -300,7 +300,7 @@ const Navbar = () => {
               </div>
             </div>
             <div className="navbar_right-block">
-              <button className="navbar_search" onClick={() => setIsOpenSearch(true)}><span><FiSearch/></span><p>search</p></button>
+              <Link to={"/search"} className="navbar_search" onClick={() => setIsOpenSearch(true)}><span><FiSearch/></span><p>search</p></Link>
               <NavLink to={'/cart'} className="navbar_link"><CgShoppingBag/><span>100</span></NavLink>
               <NavLink to={'/favorite'} className="navbar_link navbar_link_heart"><FaRegHeart/><span>{Number(favourite.length)}</span></NavLink>
               {

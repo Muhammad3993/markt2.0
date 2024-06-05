@@ -4,13 +4,13 @@ import axios from "axios"
 
 
 export const apiClient = {
-    async fetch(method, path, body){
+    async fetch(method, path, body, language){
         const axios_parameters = {
             method: method,
             url: `${config.baseUrl}${path}`,
             headers: {
                 "Content-Type": "application/json",
-                // "Accept-Language" : "uz"
+                "Accept-Language" : language
             },
         }
 

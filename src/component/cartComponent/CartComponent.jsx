@@ -9,6 +9,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { cartItemsApi } from '../../data/cartItemsApi';
 
 const CartComponent = () => {
+    const { language } = useContextProvider();
     const [count, setCount] = useState(0)
 
     let min = 0;
@@ -30,11 +31,11 @@ const CartComponent = () => {
 
     useEffect(() => {
         const getCartItems = async () => {
-            const response = await cartItemsApi.getCartItems()
+            const response = await cartItemsApi.getCartItems(language)
             setCartItemResponse(response)
         }
         getCartItems();
-    }, []);
+    }, [language]);
 
   return (
     <div className='cart'>

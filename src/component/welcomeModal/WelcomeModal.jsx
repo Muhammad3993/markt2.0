@@ -21,7 +21,7 @@ const WelcomeModal = () => {
     const [openModal, setOpenModal] = useState(true)
     const [randomProductResponse, setRandomProductResponse] = useState(null);
 
-    const {favourite, addToFavourite} = useContextProvider();
+    const {favourite, addToFavourite, language} = useContextProvider();
 
     const handleClick = (item) => {
         addToFavourite(item);
@@ -29,12 +29,12 @@ const WelcomeModal = () => {
 
     useEffect(() => {
         const getRandomProductApi = async () => {
-            const response = await randomProductApi.getRandomProductApi()
+            const response = await randomProductApi.getRandomProductApi(language)
             setRandomProductResponse(response)
         }
   
         getRandomProductApi();
-    }, []);
+    }, [language]);
   return (
     <div className={!openModal ? 'welcomeModal welcomeModal_close' : 'welcomeModal'}>
         <div className="welcomeModal_box">

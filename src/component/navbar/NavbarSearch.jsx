@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react"
 // import icons
-import {AiOutlineClose} from "react-icons/ai"
+import {AiOutlineClose, AiOutlineSearch} from "react-icons/ai"
 import {FiSearch} from "react-icons/fi"
 // import img
 import img from '../../assets/images/img.png'
 // react-router-dom
 import { NavLink } from "react-router-dom"
+// context
+import { useContextProvider } from "../../context/Context"
 
 const NavbarSearch = ({isOpenSearch, setIsOpenSearch, positionTop}) => {
+  const {productsResponse, currentPage, pages, productsColumn, setProductsColumn, setIsOpenFilter, selectData, handleClear, handlePagination, favourite, addToFavourite, inputRef, searchItem, setSearchItem, handleChangeSearchInput} = useContextProvider();
   const [products, setProducts] = useState([]);
   
   useEffect(() => {
@@ -42,9 +45,13 @@ const NavbarSearch = ({isOpenSearch, setIsOpenSearch, positionTop}) => {
           <div className="nav_search-container">
             <div className="nav_search_searchbox">
               <div className="nav_search_searchbox_input">
-                <input type="text" placeholder="Search"/>
+                <input type="text" placeholder="Search" onChange={handleChangeSearchInput} ref={inputRef} value={searchItem}/>
               </div>
-              <button className="nav_search_searchbox_btn" onClick={() => setIsOpenSearch(false)}><AiOutlineClose/></button>
+              {
+                searchItem !== "" ? 
+                <button className="nav_search_searchbox_btn" onClick={() => setIsOpenSearch(false)}><AiOutlineSearch/></button> : ""
+              }
+              <button className="nav_search_searchbox_btn" title="close" onClick={() => setIsOpenSearch(false)}><AiOutlineClose/></button>
             </div>
             <div className="nav_search_popular">
               <p className="nav_search_popular_title">Popular searchings</p>

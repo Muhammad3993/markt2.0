@@ -12,12 +12,12 @@ import Account from "./pages/Account.jsx"
 import Order from "./pages/Order.jsx"
 import About from "./pages/About.jsx"
 import Favourite from "./pages/Favourite.jsx"
+import TagsShow from "./pages/TagsShow.jsx"
 // Layouts
 import MainLayout from "./layout/MainLayout"
 import AccountLayout from "./layout/AccountLayout.jsx"
 // context
 import { ContextProvider } from "./context/Context"
-
 
 function App() {
   const routes = createBrowserRouter(
@@ -30,6 +30,7 @@ function App() {
         <Route path="cart" element={<Cart/>} />
         <Route path="search" element={<SearchResult/>} />
         <Route path="favorite" element={<Favourite/>} />
+        <Route path="tags/:slug" element={<TagsShow/>} />
         <Route element={<AccountLayout/>}>
           <Route path="/account" element={<Account/>}/>
           <Route path="/order" element={<Order/>}/>

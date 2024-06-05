@@ -17,7 +17,7 @@ import { useContextProvider } from '../../context/Context';
 
 const ProductDetail = () => {
 
-  const { addToFavourite, favourite } = useContextProvider();
+  const { addToFavourite, favourite, language } = useContextProvider();
 
   const handleClick = (item) => {
     addToFavourite(item);
@@ -74,11 +74,11 @@ const ProductDetail = () => {
 
   useEffect(() => {
     const getProductDetailApi = async () => {
-      const response = await productDetailApi.getProductDetailApi(slug);
+      const response = await productDetailApi.getProductDetailApi(slug, language);
       setproductDetailResponse(response)
     }
     getProductDetailApi();
-  }, [slug]);
+  }, [slug, language]);
 
 
 
