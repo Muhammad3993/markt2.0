@@ -221,3 +221,13 @@
         text-align: center;
     }
 }
+
+@media screen and (max-width: 530px) {
+    .welcomeModal_box_title{
+        margin-top: 20px;
+    }
+
+    .welcomeModal_box_close{
+        top: 60px;
+    }
+}
