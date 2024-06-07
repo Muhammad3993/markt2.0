@@ -14,7 +14,7 @@ import { FaRegHeart } from 'react-icons/fa';
 import { debounce } from 'lodash';
 
 const SearchResultComponent = () => {
-  const {productsResponse, currentPage, pages, productsColumn, setProductsColumn, setIsOpenFilter, selectData, handleClear, handlePagination, favourite, addToFavourite, inputRef, searchItem, setSearchItem, handleChangeSearchInput, language} = useContextProvider();
+  const { productsColumn, setProductsColumn, favourite, inputRef, searchItem, setSearchItem, handleChangeSearchInput, language} = useContextProvider();
 
   const [searchResult, setSearchResult] = useState(null);
 
@@ -34,7 +34,7 @@ const SearchResultComponent = () => {
   const handleClearSearchInput = () => {
     setSearchItem('')
     if (inputRef.current.value) {
-        inputRef.current.value = ""
+        inputRef.current.value = "";
     }
   }
 

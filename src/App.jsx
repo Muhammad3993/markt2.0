@@ -13,6 +13,7 @@ import Order from "./pages/Order.jsx"
 import About from "./pages/About.jsx"
 import Favourite from "./pages/Favourite.jsx"
 import TagsShow from "./pages/TagsShow.jsx"
+import NotFound from "./pages/NotFound.jsx"
 // Layouts
 import MainLayout from "./layout/MainLayout"
 import AccountLayout from "./layout/AccountLayout.jsx"
@@ -23,6 +24,7 @@ function App() {
   const routes = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout/>}>
+        <Route path="*" element={<NotFound/>}/>
         <Route index element={<Home/>}/>
         <Route path="products" element={<Products/>}/>
         <Route path="products/:slug" element={<ProductDetail/>}/>

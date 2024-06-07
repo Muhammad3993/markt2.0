@@ -222,7 +222,7 @@
     }
 }
 
-@media screen and (max-width: 530px) {
+@media screen and (max-width: 414px) {
     .welcomeModal_box_title{
         margin-top: 20px;
     }
