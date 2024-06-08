@@ -27,6 +27,7 @@ const NewArrivals = () => {
         setRandomProductResponse(response)
         setLoading(false)
     }
+    
     useEffect(() => {
         if (randomProductResponse && randomProductResponse.length !== 0) {
             getRandomProductApi();

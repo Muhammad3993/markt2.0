@@ -9,10 +9,13 @@ import img1 from '../../assets/images/dots4.png';
 // react-router-dom
 import { Link, useParams } from "react-router-dom";
 // icons
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 const TagsShowComponent = () => {
-    const { productsColumn, setProductsColumn, favourite, language } = useContextProvider();
+    const { productsColumn, setProductsColumn, favourite, addToFavourite, language } = useContextProvider();
+    const handleClick = (item) => {
+        addToFavourite(item);
+    };
 
     const [tagsShowResponse, setTagsShowResponse] = useState(null);
 

@@ -7,6 +7,7 @@ import img from '../../assets/images/img.png'
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import { RiDeleteBinLine } from "react-icons/ri";
 import { cartItemsApi } from '../../data/cartItemsApi';
+import { useContextProvider } from '../../context/Context';
 
 const CartComponent = () => {
     const { language } = useContextProvider();

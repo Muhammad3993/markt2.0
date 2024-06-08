@@ -63,6 +63,8 @@ export const ContextProvider = ({ children }) => {
         tags: selectedTags,
         brands: selectedBrands
     };
+
+    
     const categoryIds = selectedCategories.map(el => el.id);
     const tagIds = selectedTags.map(el => el.id);
     const brandIds = selectedBrands.map(el => el.id);
@@ -143,7 +145,7 @@ export const ContextProvider = ({ children }) => {
     useEffect(() => {
         const storedFavourites = JSON.parse(localStorage.getItem('favourite')) || [];
         setFavourite(storedFavourites);
-    }, []);
+    });
 
     
 

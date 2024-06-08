@@ -1,8 +1,6 @@
 import { config } from "../config.js"
 import axios from "axios"
 
-
-
 export const apiClient = {
     async fetch(method, path, body, language){
         const axios_parameters = {
@@ -27,6 +25,5 @@ export const apiClient = {
         }catch(e){
             console.log(e);
         }
-
     }
 }

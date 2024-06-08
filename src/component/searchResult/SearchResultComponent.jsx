@@ -11,6 +11,7 @@ import { searchApi } from '../../data/searchApi';
 import { useContextProvider } from '../../context/Context';
 import { Link } from 'react-router-dom';
 import { FaRegHeart } from 'react-icons/fa';
+
 import { debounce } from 'lodash';
 
 const SearchResultComponent = () => {
